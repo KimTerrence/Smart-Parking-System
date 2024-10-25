@@ -1,0 +1,60 @@
+
+import axios from 'axios';
+import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+
+
+
+function Register(){
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [uname, setUname] = useState('');
+    const [pw, setPw] = useState('');
+    const [cpw, setCpw] = useState('');
+    const navigate = useNavigate();
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {   
+            if(fname.length !== 0 && lname.length !== 0 && uname.length !== 0 && pw.length !== 0){
+                if(pw == cpw){
+                    const response = await axios.post('http://localhost:5000/register', { //-----host-----
+                        fname,
+                        lname,
+                        uname,
+                        pw,
+                    });
+                    if(response.data.code === 201){
+                        alert(response.data.message);
+                        navigate('/');
+                    
+                    }else {
+                        alert(response.data.message);
+                    }
+                }else{
+                    alert("password not match");
+                }
+            }else{
+                alert("empty")
+            }   
+            }catch (error){
+                console.error(error);
+            }
+        }
+    return(
+        <div className='flex h-screen w-full items-center justify-center bg-blue-400'>
+            <form action="" onSubmit={handleRegister} className='h-5/6 w-2/5 flex flex-col items-center justify-center border-2 gap-5 p-10 bg-white sm'>
+                <p className='text-5xl font-extrabold'>Register</p>
+                <input type="text" placeholder="Firstname" value={fname} onChange={(e) => setFname(e.target.value)} className='h-16 w-5/6 border-2 px-5'/>
+                <input type="text" placeholder="Lastname" value={lname} onChange={(e) => setLname(e.target.value)} className='h-16 w-5/6 border-2 px-5'/>
+                <input type="text"  placeholder="Username" value={uname} onChange={(e) => setUname(e.target.value)} className='h-16 w-5/6 border-2 px-5'/>
+                <input type="password" placeholder="Password" value={pw} onChange={(e) => setPw(e.target.value)} className='h-16 w-5/6 border-2 px-5'/>
+                <input type="password" placeholder="Confirm Password" value={cpw} onChange={(e) => setCpw(e.target.value)} className='h-16 w-5/6 border-2 px-5'/>
+                <button type='submit' className='h-12 w-24 bg-slate-50 border-black border-2 rounded-lg'>Register</button>
+                <p>Already have an account? <a href="/" className='text-blue-800'>Login</a></p>
+            </form>
+        </div>
+    )
+}
+
+export default Register
