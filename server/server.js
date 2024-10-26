@@ -57,18 +57,18 @@ app.post('/register', (req, res) => {
 //-----Login
 app.post('/login', (req, res) => {
     const { uname , pw} = req.body;
-    db.query(`select * from parking_users where username = "${uname}" and password = "${pw}" `,
+    db.query(`select * from parking_users where username = "${uname}" and password = "${pw}" and status = "admin"`, //for user
         (err, results) => {
         if (err) {
             return res.json({ code: 500, message: 'Error logging in' });
-        }
+          }
         if (results.length > 0) {
             return res.json({ code: 200, message: 'Login successful' });
         } else {
               return res.json({ code: 401, message: 'Invalid credentials' });
         }
         }
-    );
+  );
 });
 
 

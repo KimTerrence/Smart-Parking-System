@@ -8,7 +8,6 @@ Routes File
 
 import { useNavigate } from 'react-router-dom';
 import Background from '../assets/parking.png'
-import Login from './Login';
 
 function LandingPage(){
     const navigate = useNavigate();
@@ -17,7 +16,7 @@ function LandingPage(){
         navigate('/login');
     }
     const handleView  = () => {
-        navigate('/main');
+        navigate('/register');
     }
 
     return(
@@ -35,7 +34,7 @@ function LandingPage(){
                         and save time."
                     </h2>
                     <div className='flex gap-5 justify-center sm:justify-start'>
-                        <button className='bg-black text-white px-5 py-2 rounded-xl text-sm' onClick={handleView}>View Parking</button>
+                        <button className='bg-black text-white px-5 py-2 rounded-xl text-sm' onClick={handleView}>Register</button>
                         <button className='border-2 border-black px-5 py-3 rounded-xl text-sm' onClick={handleLogin}>Login</button>
                     </div>
                 </div>

@@ -16,16 +16,20 @@ const handleLogin = async (e) => {
         const response = await axios.post('http://localhost:5000/login', { //-----Host-----
             uname, pw,
         });
+        console.log(response.data);
         if (response.data.code === 200) {
             navigate('/main');
           } else {
             alert(response.data.message);
           }
+          if (response.data.code === 201) {
+            navigate('/admin');
+          } 
         } catch (error) {
           console.error(error);
         }
       };
-
+      
     return(
         <div className='bg-gray-50/70 p-10 rounded-lg '> 
             <form action="" onSubmit={handleLogin} className='flex flex-col  items-center  justify-center gap-10'>
