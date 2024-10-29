@@ -21,6 +21,7 @@ function Home(){
 
             </div>
           </div>
+
           <div className='w-1/2 pr-20 flex justify-end'>
             <img src={Background} alt="" className='h-98 hover:h-99 ease-in duration-300 hover:drop-shadow-blue-drop'/>
           </div>

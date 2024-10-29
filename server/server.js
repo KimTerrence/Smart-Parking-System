@@ -40,10 +40,10 @@ db.connect(err => {
 });
 
 
-//-----Register
+//-----User Register
 app.post('/register', (req, res) => {
     const {fname, lname, uname, pw} = req.body;
-    db.query(`insert into parking_users(firstname, lastname, username, password) values ( "${fname}", "${lname}" ,"${uname}", "${pw}")`,
+    db.query(`insert into parking_users(firstname, lastname, username, password , status) values ( "${fname}", "${lname}" ,"${uname}", "${pw}" , "New User")`,
         (err) => {
             if (err) {
               return res.json({ code: 500, message: 'Error registering user' });
@@ -54,16 +54,17 @@ app.post('/register', (req, res) => {
       });
 
 
-//-----Login
+//-----User Login
 app.post('/login', (req, res) => {
     const { uname , pw} = req.body;
-    db.query(`select * from parking_users where username = "${uname}" and password = "${pw}" and status = "admin"`, //for user
+    db.query(`select * from parking_users where username = "${uname}" and password = "${pw}" and status <>  "admin"`,
         (err, results) => {
         if (err) {
             return res.json({ code: 500, message: 'Error logging in' });
           }
         if (results.length > 0) {
             return res.json({ code: 200, message: 'Login successful' });
+            console.log(mysql.QueryResult);
         } else {
               return res.json({ code: 401, message: 'Invalid credentials' });
         }
@@ -72,11 +73,49 @@ app.post('/login', (req, res) => {
 });
 
 
+//-----Admin Login
+app.post('/admin-login', (req, res) => {
+  const { uname , pw} = req.body;
+  db.query(`select * from parking_users where username = "${uname}" and password = "${pw}" and status = "admin"`,
+      (err, results) => {
+      if (err) {
+          return res.json({ code: 500, message: 'Error logging in' });
+        }
+      if (results.length > 0) {
+          return res.json({ code: 200, message: 'Login successful' });
+          console.log(mysql.QueryResult);
+      } else {
+            return res.json({ code: 401, message: 'Invalid credentials' });
+      }
+      }
+);
+});
+
+//----- admin dashboard get user
+app.get('/admin', (req,res) => {
+  db.query("select * from parking_users", 
+  (err, results) => {
+      res.json(results);
+  }
+  )
+})
+
+// ----- admin user post
+app.put('/admin/:id', (req, res) => {
+  const { status } = req.body;
+  const { id } = req.params;
+  db.query('UPDATE parking_users SET status = ? WHERE id = ?', [status, id], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.json({ message: 'User updated successfully' });
+  });
+});
+
 //-----sensor
 app.get('/sensor', (req,res) => {
   db.query("select * from sensor",
   (err, results) => {
     res.json(results);
+
     }
 );
 });
