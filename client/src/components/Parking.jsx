@@ -1,13 +1,17 @@
 import ParkingSlot from "./ParkingSlot"
 import React, { useState, useEffect } from 'react';
 import car from '../assets/car.png'
-
+import Map from './Map'
 
 function Parking(){
  
 // State variable to store sensor data
 const [sensorData, setSensorData] = useState([]);
 const [loading, setLoading] = useState(true);
+const [isModalOpen, setModalOpen] = useState(false);
+
+const openModal = () => setModalOpen(true);
+const closeModal = () => setModalOpen(false);
  // Fetch the sensor data when the component mounts
  useEffect(() => {
     async function fetchSensorData() {
@@ -22,50 +26,59 @@ const [loading, setLoading] = useState(true);
         }
     }
 
+
     // Fetch sensor data every 5 seconds
     const intervalId = setInterval(fetchSensorData, 1000);
 
-    // Cleanup the interval when the component unmounts
-    return () => clearInterval(intervalId);
+    // Cleanup the interval when the component unmount
+    
+    return () => clearInterval(intervalId);   
+    
 }, []);
 
 
-if(sensorData.sensor2 == 1){ //sensor1
-    var status1 = "Occupied";
-    var carimg1 = car;
+
+//Sensor state
+if(sensorData.sensor2 == 1){ //slot1
+  var status1 = "Occupied";
+  var carimg1 = car;
 }else if (sensorData.sensor2 == 0){
-    var status1 = "Available";
-    var carimg1 = "";
+  var status1 = "Available";
+  var carimg1 = "";
 }
-if(sensorData.sensor3 == 1){ //senro3
-    var status2 = "Occupied";
-    var carimg2 = car;
+if(sensorData.sensor3 == 1){ //slot2
+  var status2 = "Occupied";
+  var carimg2 = car;
 }else if (sensorData.sensor3 == 0){
-    var status2 = "Available";
-    var carimg2 = "";
+  var status2 = "Available";
+  var carimg2 = "";
 }
 
-if(sensorData.sensor4 == 1){
-    var status3 = "Occupied";
-    var carimg3 = car;
+if(sensorData.sensor4 == 1){ //slot3
+  var status3 = "Occupied";
+  var carimg3 = car;
 }else if (sensorData.sensor4 == 0){
-    var status3 = "Available";
-    var carimg3 = "";
+  var status3 = "Available";
+  var carimg3 = "";
 }
 
-if(sensorData.sensor5 == 1){
-    var status4 = "Occupied";
-    var carimg4 = car;
+if(sensorData.sensor5 == 1){ //slot4
+  var status4 = "Occupied";
+  var carimg4 = car;
 }else if (sensorData.sensor5 == 0){
-    var status4 = "Available";
-    var carimg4 = "";
+  var status4 = "Available";
+  var carimg4 = "";
 }
-
-
 
     return(
+      
         <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-20">
             <p className="w-5/6 text-3xl font-bold text-center">Parking Slots</p>
+            <div className="w-full flex gap-10">
+              <button className="px-5 py-2 border-2 rounded-lg" onClick={openModal}>View Map</button>
+              <Map show={isModalOpen} onClose={closeModal}/>
+              <button className="px-5 py-2 border-2 rounded-lg">Enable notification</button>
+            </div>
             <div className="flex flex-row gap-12">
               <ParkingSlot
               slot={1}
@@ -91,7 +104,9 @@ if(sensorData.sensor5 == 1){
               img={carimg4}
               />
             </div>
+            
         </div>
+        
     )
 }
 

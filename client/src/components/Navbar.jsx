@@ -1,7 +1,16 @@
 import {useNavigate} from 'react-router-dom';
+import Profile from './Profile';
+import { useState } from 'react';
 
 function Navbar()    {
     const navigate = useNavigate();
+    const [isProfileOpen, setProfileOpen] = useState(false);
+
+    const openProfile = () => setProfileOpen(true);
+    const closeProfile = () => setProfileOpen(false);
+
+
+
     const handleUser = () => {
         navigate('/')
     }
@@ -14,7 +23,8 @@ function Navbar()    {
                 <a href="#about" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">About</a>
                 <a href="#contact" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Contact</a>
             </nav>
-            <p onClick={handleUser}>Log out</p>
+            <p onClick={openProfile}>Log out</p>
+            <Profile show={isProfileOpen} onClose={closeProfile} />
         </div>
     )
 }

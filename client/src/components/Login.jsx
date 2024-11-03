@@ -12,21 +12,35 @@ function Login(){
 
 const handleLogin = async (e) => {
     e.preventDefault();
+
     try{
-        const response = await axios.post('http://localhost:5000/login', { //-----Host-----
-            uname, pw,
-        });
-        console.log(response.data);
-        if (response.data.code === 200) {
-            navigate('/main');
-          } else {
-            alert(response.data.message);
-          }
-        } catch (error) {
-          console.error(error);
+      const response = await axios.post('http://localhost:5000/admin-login', { //-----login as admin-----
+          uname, pw,
+      });
+      console.log(response.data);
+      if (response.data.code === 200) {
+          navigate('/admin');
+        } else {
+          try{
+            const response = await axios.post('http://localhost:5000/login', { //-----login as user-----
+                uname, pw,
+            });
+            console.log(response.data);
+            if (response.data.code === 200) {
+                navigate('/main');
+              } else {
+                alert(response.data.message);
+              }
+            } catch (error) {
+              console.error(error);
+            }
         }
-      };
-      
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+  
     return(
         <div className='bg-gray-50/70 p-10 rounded-lg '> 
             <form action="" onSubmit={handleLogin} className='flex flex-col  items-center  justify-center gap-10'>

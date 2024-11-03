@@ -6,9 +6,7 @@ function Admin(){
 
     const [users, setUsers] = useState([]);
     const [editingUser, setEditingUser] = useState(null);
-    const [formData, setFormData] = useState({ stat: ''});
-    const [stat, setstat] = useState();
-    const [message, setMessage] = useState('');
+  
 
   
     //get and display users information
@@ -44,9 +42,6 @@ function Admin(){
         const { name, value } = e.target;
         setEditingUser((prevUser) => ({ ...prevUser, [name]: value }));
     };
-
-    var color;
-    console.log(users);
     return(
         <>
             <div>
