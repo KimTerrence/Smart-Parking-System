@@ -9,9 +9,11 @@ function Parking(){
 const [sensorData, setSensorData] = useState([]);
 const [loading, setLoading] = useState(true);
 const [isModalOpen, setModalOpen] = useState(false);
+const [isNotifOn, setNotifOn] = useState(false);
 
 const openModal = () => setModalOpen(true);
 const closeModal = () => setModalOpen(false);
+
  // Fetch the sensor data when the component mounts
  useEffect(() => {
     async function fetchSensorData() {
@@ -28,7 +30,7 @@ const closeModal = () => setModalOpen(false);
 
 
     // Fetch sensor data every 5 seconds
-    const intervalId = setInterval(fetchSensorData, 1000);
+    const intervalId = setInterval(fetchSensorData, 2000);
 
     // Cleanup the interval when the component unmount
     
@@ -70,6 +72,50 @@ if(sensorData.sensor5 == 1){ //slot4
   var carimg4 = "";
 }
 
+    // Request permission for notifications on page load
+    const onNotif = () => {
+    if (Notification.permission === "default") {
+      Notification.requestPermission().then(permission => {
+        if (permission !== "granted") {
+          console.log("Notification permission denied.");
+        }
+      });
+    }
+  }
+
+  const offNotif = () => {
+    if (Notification.permission === "granted") {
+      Notification.requestPermission().then(permission => {
+        alert("To fully disable notifications, please go to your browser settings.");
+      });
+    }
+  }
+
+    let notificationTimeout;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && status1 == "Available") {
+        // Delay the notification by 5 seconds
+        notificationTimeout = setTimeout(() => {
+          sendPushNotification();
+        }, 3000);
+      } else {
+        // Clear timeout if the user returns before delay ends
+        clearTimeout(notificationTimeout);
+      }
+    };
+
+    const sendPushNotification = () => {
+        new Notification(`Beep! Beep!, Slot  available!`, {
+          body: "There are slot available! Click to return.",
+          icon: "/path-to-your-icon.png",
+        });
+    };
+
+    handleVisibilityChange()
+  
+    
+
     return(
       
         <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-20">
@@ -77,7 +123,7 @@ if(sensorData.sensor5 == 1){ //slot4
             <div className="w-full flex gap-10">
               <button className="px-5 py-2 border-2 rounded-lg" onClick={openModal}>View Map</button>
               <Map show={isModalOpen} onClose={closeModal}/>
-              <button className="px-5 py-2 border-2 rounded-lg">Enable notification</button>
+              <button className="px-5 py-2 border-2 rounded-lg" onClick={Notification.permission === "granted" ? offNotif :  onNotif}>{Notification.permission === "granted" ? "Disable Notification" : "Enable Notification"}</button>
             </div>
             <div className="flex flex-row gap-12">
               <ParkingSlot

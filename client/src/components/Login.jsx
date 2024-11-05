@@ -38,9 +38,23 @@ const handleLogin = async (e) => {
       } catch (error) {
         console.error(error);
       }
+/*
+      try {
+        const response = await fetch('http://localhost:5000/currentUser');
+        const data = await response.json();
+        currentUser(data);
+    } catch (error) {
+        console.error('Error fetching sensor data:', error);
+        setLoading(false);
+    }
+}
     };
+    
 
-  
+    const User = () => {
+
+    }
+  */}
     return(
         <div className='bg-gray-50/70 p-10 rounded-lg '> 
             <form action="" onSubmit={handleLogin} className='flex flex-col  items-center  justify-center gap-10'>

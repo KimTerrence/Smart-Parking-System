@@ -178,45 +178,6 @@ wss.on('connection', (ws) => {
 const server = http.createServer(app);
 
 
-// Create a Socket.IO server
-const io = new Server(server, {
-  cors: {
-      origin: "http://localhost:5173", // Allow React frontend to connect
-      methods: ["GET", "POST"]
-  }
-});
-
-// Listen for new socket connections
-io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
-
-  // Send initial data when a client connects
-  sendDataToClients();
-
-  // You can also listen for specific events from clients if needed
-  socket.on('disconnect', () => {
-      console.log('User disconnected:', socket.id);
-  });
-});
-
-// Function to send data to connected clients
-function sendDataToClients() {
-  const query = 'SELECT * FROM sensor';
-  db.query(query, (err, results) => {
-      if (err) {
-          console.error('Error querying MySQL:', err);
-          return;
-      }
-      // Emit the data to all connected clients
-      io.emit('updateData', results);
-  });
-}
-
-// Periodically check for updates in the database and notify clients
-setInterval(() => {
-  sendDataToClients(); // Fetch and send data every X milliseconds (e.g., every 5 seconds)
-}, 1000); // Check every 1 seconds
-
 
 // API Route to fetch the latest sensor data
 app.get('/latest-sensor-data', (req, res) => {

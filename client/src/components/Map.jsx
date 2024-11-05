@@ -13,11 +13,9 @@ const Modal = ({ show, onClose }) => {
                 >
                     &times;
                 </button>
-                <div>
-                    <p>Location</p>
+                <div className="flex flex-col items-center justify-between w-full h-full">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d796.512767579458!2d121.99720079279564!3d18.261562053848372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m3!3m2!1d18.2619669!2d121.9976293!4m0!5e0!3m2!1sen!2sph!4v1730643264487!5m2!1sen!2sph"  loading="lazy" referrerPolicy="no-referrer-when-downgrade" className='h-full w-5/6'></iframe>
                 </div>
-                <button onClick={onClose}  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                >close</button>
             </div>
         </div>
     );
