@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import delete_svg from '../assets/delete_b.svg';
 
 function Admin(){
 
@@ -23,6 +24,8 @@ function Admin(){
         fetchUsers();
       }, []);
   
+
+    // edit user
     const handleEdit = (parking_users) => {
     setEditingUser(parking_users);
     };
@@ -42,6 +45,18 @@ function Admin(){
         const { name, value } = e.target;
         setEditingUser((prevUser) => ({ ...prevUser, [name]: value }));
     };
+
+    //delete user
+    const handleDelete = async (id) => {
+        try {
+          await axios.delete(`http://localhost:5000/delete/${id}`);
+          alert('Data deleted successfully');
+        fetchUsers()
+        } catch (error) {
+          console.error('There was an error deleting the data!', error);
+        }
+      };
+
     return(
         <>
             <div>
@@ -96,6 +111,11 @@ function Admin(){
                                 ) : (
                                     <button onClick={() => handleEdit(parking_users)}>Edit</button>
                                 )}
+                            </td>
+                            <td>
+                                <button className='flex items-center justify-center' onClick={() => handleDelete(parking_users.id)}>
+                                    <img src={delete_svg} alt="" />
+                                </button>
                             </td>
                         </tr>
                         )}

@@ -100,7 +100,7 @@ app.get('/admin', (req,res) => {
   )
 })
 
-// ----- admin user post
+//----- admin user post
 app.put('/admin/:id', (req, res) => {
   const { status } = req.body;
   const { id } = req.params;
@@ -119,6 +119,23 @@ app.get('/sensor', (req,res) => {
     }
 );
 });
+
+// delete user 
+// DELETE route
+app.delete('/delete/:id', (req, res) => {
+  const { id } = req.params;
+  const deleteQuery = 'DELETE FROM parking_users WHERE id = ?';
+
+  db.query(deleteQuery, [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Failed to delete data' });
+    }
+    res.json({ message: 'Data deleted successfully' });
+  });
+});
+
+
 
 //-----esp8266-websocket---------------------------------
 const wss = new WebSocket.Server({ port: 8080});
