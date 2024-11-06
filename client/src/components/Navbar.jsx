@@ -1,19 +1,14 @@
 import {useNavigate} from 'react-router-dom';
 import Profile from './Profile';
 import { useState } from 'react';
+import Login from './Login';
 
 function Navbar()    {
-    const navigate = useNavigate();
     const [isProfileOpen, setProfileOpen] = useState(false);
 
     const openProfile = () => setProfileOpen(true);
     const closeProfile = () => setProfileOpen(false);
-
-
-
-    const handleUser = () => {
-        navigate('/')
-    }
+   
     return(
         <div id="navbar" className="fixed bg-white h-16 w-full px-20 flex flex-row items-center justify-between z-20">
             <p>logo</p>

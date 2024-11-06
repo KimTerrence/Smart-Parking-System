@@ -10,7 +10,6 @@ const Modal = ({ show, onClose }) => {
         navigate('/')
     }
     
-    
 
     if (!show) return null;
 
