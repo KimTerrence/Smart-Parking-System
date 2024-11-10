@@ -1,15 +1,32 @@
 // Modal.js
 import React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
+import Parking from './Parking';
+import { useState , useEffect } from 'react';
+import axios from 'axios';
 
-
+//modal
 const Modal = ({ show, onClose }) => {
 
     const navigate = useNavigate();
+    const [users, setUsers] = useState([]);
     const logOut = () => {
         navigate('/')
     }
-    
+//fetch and display current user
+const fetchUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/login');
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };;
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
 
     if (!show) return null;
 
@@ -22,9 +39,18 @@ const Modal = ({ show, onClose }) => {
                 >
                     &times;
                 </button>
-                <div>
-                    <p>Hi! </p>
+                {users.map((parking_users) =>
+                <div key={parking_users.id}>
+                    <p className='text-2xl'>Hi! {parking_users.firstname} {parking_users.lastname}</p>
+                {
+                    parking_users.status === "Verified" ?  <p className='text-green-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                    parking_users.status === "Declined" ?  <p className='text-red-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                    parking_users.status === "Admin" ?  <p className='text-blue-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                    parking_users.status === "New User" ?  <p className='text-orange-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p>
+                } 
+                    
                 </div>
+                )}
                 <button onClick={logOut}  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                 >Logout</button>
             </div>

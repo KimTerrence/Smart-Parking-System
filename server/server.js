@@ -55,8 +55,13 @@ app.post('/register', (req, res) => {
 
 
 //-----User Login
+const UserLogin = () => {
+var username;
+var passwd;
 app.post('/login', (req, res) => {
     const { uname , pw} = req.body;
+    username = uname;
+    passwd = pw;
     db.query(`select * from parking_users where username = "${uname}" and password = "${pw}" and status <>  "admin"`,
         (err, results) => {
         if (err) {
@@ -72,6 +77,16 @@ app.post('/login', (req, res) => {
   );
 });
 
+app.get('/login', (req, res) => {
+  db.query(`select * from parking_users where username = "${username}" and password = "${passwd}" and status <>  "admin"`,
+    (err, results) => {
+      res.json(results);
+      }
+);
+});
+}
+
+UserLogin()
 
 //-----Admin Login
 app.post('/admin-login', (req, res) => {
