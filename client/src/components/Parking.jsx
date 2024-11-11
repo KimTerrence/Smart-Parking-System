@@ -118,7 +118,7 @@ if(sensorData.sensor5 == 1){ //slot4
 
     return(
       
-        <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-20">
+        <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-20 -top-20">
             <p className="w-5/6 text-3xl font-bold text-center">Parking Slots</p>
             <div className="w-full flex gap-10">
               <button className="px-5 py-2 border-2 rounded-lg" onClick={openModal}>View Map</button>

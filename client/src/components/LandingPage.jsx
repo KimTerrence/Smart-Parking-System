@@ -20,9 +20,9 @@ function LandingPage(){
     }
 
     return(
-        <div className='h-screen w-full sm:p-20 bg-blue-400 px-5 py-20'>
+        <div className='h-screen w-full sm:p-20 bg-blue-400 px-2 py-20'>
             <div className='flex-col-reverse h-full w-full flex items-center justify-center bg-white rounded-xl sm:flex-row'>
-                <div className='px-10 sm:px-0 sm:w-1/2 sm:pl-20 flex flex-col gap-5 '>
+                <div className='px-5 sm:px-0 sm:w-1/2 sm:pl-20 flex flex-col gap-5 '>
                     <h1 className='text-2xl text-center sm:text-5xl font-bold sm:text-left'>
                         Smart Parking System
                     </h1>

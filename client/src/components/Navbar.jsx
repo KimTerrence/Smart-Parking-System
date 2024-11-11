@@ -34,7 +34,7 @@ const fetchUsers = async () => {
 
    
     return(
-        <div id="navbar" className="fixed bg-white h-16 w-full px-20 flex flex-row items-center justify-between z-20">
+        <div id="navbar" className="hidden sm:flex fixed bg-white h-16 w-full px-20  flex-row items-center justify-between z-20">
             <div className='w-60'>logo</div>
             <nav className="text-l flex gap-10">
                 <a href="#home" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Home</a>
