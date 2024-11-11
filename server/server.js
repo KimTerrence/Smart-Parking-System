@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use(cors({
   origin: 'http://localhost:5173' // Allow requests from React app
+ // origin: 'http://192.168.8.105:5173'
 }));
 
 

@@ -42,12 +42,12 @@ const handleLogin = async (e) => {
       
     }
     return(
-        <div className='bg-gray-50/70 p-10 rounded-lg '> 
-            <form action="" onSubmit={handleLogin} className='flex flex-col  items-center  justify-center gap-10'>
+        <div className='bg-blue-400 p-10 rounded-lg h-screen w-full flex items-center justify-center'> 
+            <form action="" onSubmit={handleLogin} className='bg-white flex flex-col  items-center  justify-center gap-10 py-10 w-4/12 rounded-xl'>
                 <p className='text-4xl font-extrabold'>Login</p>
-                <input type="text"  placeholder='Username' value={uname} onChange={(e) => setUname(e.target.value)} className='h-16 px-5 w-80 bg-white/70 placeholder:text-black border-collapse border-gray-400 border-2 rounded-lg'/>
-                <input type="password" name="" placeholder='Password' value={pw} onChange={(e) => setPw(e.target.value)} className='h-16 px-5 w-80 bg-white/70 placeholder:text-black border-collapse border-gray-400 border-2 rounded-lg'/>
-                <button type='submit' className='h-12 w-24 bg-slate-50 border-black border-2 rounded-lg'>Login</button>
+                <input type="text"  placeholder='Username' value={uname} onChange={(e) => setUname(e.target.value)} className='h-12 px-5 w-80 bg-white/70 placeholder:text-black border-collapse border-gray-400 border-2 rounded-lg'/>
+                <input type="password" name="" placeholder='Password' value={pw} onChange={(e) => setPw(e.target.value)} className='h-12 px-5 w-80 bg-white/70 placeholder:text-black border-collapse border-gray-400 border-2 rounded-lg'/>
+                <button type='submit' className='h-10 w-80 bg-blue-800 border-black/40 border-2 rounded-lg text-white'>Login</button>
                 <p>Dont have an account? <a href="/register" className='text-blue-800'>Register</a></p>
             </form>
         </div> 

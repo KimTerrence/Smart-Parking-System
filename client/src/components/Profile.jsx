@@ -4,7 +4,6 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import Parking from './Parking';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
-
 //modal
 const Modal = ({ show, onClose }) => {
 

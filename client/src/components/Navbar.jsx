@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import Profile from './Profile';
 import Login from './Login';
 import profsvg from '../assets/prof_b.svg';
@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function Navbar()    {
 
+    const navigate = useNavigate();
     const [isProfileOpen, setProfileOpen] = useState(false);
 
     const openProfile = () => setProfileOpen(true);
@@ -18,6 +19,10 @@ const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:5000/login');
       setUsers(response.data);
+      if(response.data.length == 0){
+        navigate('/');
+      }
+      console.log(response.data.length)
     } catch (error) {
       console.error('Error fetching users:', error);
     }
