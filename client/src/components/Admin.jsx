@@ -59,34 +59,34 @@ function Admin(){
 
     return(
         <>
-            <div>
+            <div className='flex  flex-col items-center justify-center'>
                 <p>admin</p>
-                <table className='border-2 border-black table-auto text-left'>
+                <table className='border-2 border-black table-auto text-left w-full sm:w-4/12 text-sm'>
                     <thead>
                         <tr>
-                            <th className='px-10'>Id</th>
-                            <th className='px-10'>Name</th>
-                            <th className='px-10'>Lastname</th>
-                            <th className='px-10'>Info</th>
-                            <th className='px-10'>Status</th>
+                            <th className='sm:px-10'>Id</th>
+                            <th className='sm:px-10'>Name</th>
+                            <th className='sm:px-10'>Lastname</th>
+                            <th className='sm:px-10'>Info</th>
+                            <th className='sm:px-10'>Status</th>
                         </tr>
                     </thead>
                     <tbody> 
                         {users.map((parking_users) => 
                         <tr key={parking_users.id }> 
-                            <td className='px-10 py-2'>
+                            <td className='sm:px-10 py-2'>
                             {parking_users.id}
                             </td>
-                            <td className='px-10'>
+                            <td className='sm:px-10 py-2'>
                             {parking_users.firstname}
                             </td>
-                            <td className='px-10'>
+                            <td className='sm:px-10 py-2'>
                             {parking_users.lastname}
                             </td>
-                            <td className='px-10'>
+                            <td className='sm:px-10 py-2'>
                             Info
                             </td>
-                            <td className='px-10'>
+                            <td className='sm:px-10 py-2'>
                             {editingUser && editingUser.id === parking_users.id ? (
                                      <select name="status" onChange={handleChange}>
                                      <option value="">{parking_users.status}</option>
@@ -105,7 +105,7 @@ function Admin(){
                                     
                                 )}
                             </td>   
-                            <td className='px-10'>
+                            <td className='sm:px-10'>
                                {editingUser && editingUser.id === parking_users.id ? (
                                     <button onClick={handleSave}>Save</button>
                                 ) : (

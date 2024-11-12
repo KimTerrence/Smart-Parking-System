@@ -20,7 +20,7 @@ const fetchUsers = async () => {
       const response = await axios.get('http://localhost:5000/login');
       setUsers(response.data);
       if(response.data.length == 0){
-        navigate('/');
+       // navigate('/');
       }
       console.log(response.data.length)
     } catch (error) {
@@ -35,7 +35,7 @@ const fetchUsers = async () => {
    
     return(
         <div id="navbar" className="hidden sm:flex fixed bg-white h-16 w-full px-20  flex-row items-center justify-between z-20">
-            <div className='w-60'>logo</div>
+            <div className='w-60'>SPS</div>
             <nav className="text-l flex gap-10">
                 <a href="#home" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Home</a>
                 <a href="#parking" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Parking</a>
