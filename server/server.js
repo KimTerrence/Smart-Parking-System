@@ -27,8 +27,8 @@ app.use(cors({
 //-----database connection
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: '',
+    user: 'group5',
+    password: 'group5',
     database: 'smart_parking'
 }); 
 
