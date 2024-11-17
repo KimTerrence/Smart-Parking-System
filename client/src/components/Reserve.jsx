@@ -7,11 +7,7 @@ import axios from 'axios';
 //modal
 const Modal = ({ show, onClose }) => {
 
-    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
-    const logOut = () => {
-        navigate('/')
-    }
 //fetch and display current user
 const fetchUsers = async () => {
     try {
@@ -39,7 +35,14 @@ const fetchUsers = async () => {
                     &times;
                 </button>
                
-                <button onClick={logOut}  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+               {users.map((parking_users) => 
+                <div>
+                  <p>{parking_users.status}</p>
+                </div>
+
+               )}
+
+                <button onClick={onClose}  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                 >Reserve</button>
             </div>
         </div>

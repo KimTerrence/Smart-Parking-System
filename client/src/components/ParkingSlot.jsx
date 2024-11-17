@@ -1,7 +1,17 @@
 import bg from '../assets/parkinglot.png';
+import Reserve from '../components/Reserve'
 
+
+import { useState } from 'react';
 
 function ParkingSlot({status, slot, img}){
+
+    const [isReserveOpen, setReserveOpen] = useState(false);
+
+    const openReserve = () => setReserveOpen(true);
+    const closeReserve = () => setReserveOpen(false);
+
+   
 
     return(
         <div className ='flex flex-col items-center gap-5 text-white rounded-xl pb-10 bg-black/5 shadow-sm shadow-black/40'>
@@ -13,7 +23,8 @@ function ParkingSlot({status, slot, img}){
                 </div>
                 <p className='text-center text-l font-bold text-black'>{status}</p>
             </div>
-            <button className='bg-black w-24 h-10 rounded-lg text-white'>Reserve</button>
+            <button className='bg-black w-24 h-10 rounded-lg text-white' onClick={openReserve}>Reserve</button>
+            <Reserve show={isReserveOpen} onClose={closeReserve}/>
         </div>
     )
 }
