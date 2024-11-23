@@ -85,6 +85,17 @@ app.get('/login', (req, res) => {
       }
 );
 });
+
+// ----  vehicle prof
+app.put('/login/:id', (req, res) => {
+  const { status } = req.body;
+  const { id } = req.params;
+  db.query('UPDATE parking_users SET status = ? WHERE id = ?', [status, id], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.json({ message: 'User updated successfully' });
+  });
+});
+
 }
 
 UserLogin()
@@ -125,6 +136,9 @@ app.put('/admin/:id', (req, res) => {
     res.json({ message: 'User updated successfully' });
   });
 });
+
+
+
 
 //-----sensor
 app.get('/sensor', (req,res) => {

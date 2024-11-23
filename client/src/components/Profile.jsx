@@ -42,13 +42,44 @@ const fetchUsers = async () => {
                 <div key={parking_users.id}>
                     <p className='text-2xl'>Hi! {parking_users.firstname} {parking_users.lastname}</p>
                 {
-                    parking_users.status === "Verified" ?  <p className='text-green-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
-                    parking_users.status === "Declined" ?  <p className='text-red-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
-                    parking_users.status === "Admin" ?  <p className='text-blue-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
-                    parking_users.status === "New User" ?  <p className='text-orange-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p>
-                } 
+                    parking_users.status === "Verified" ?  <p className='text-green-500 text-sm'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                    parking_users.status === "Declined" ?  <p className='text-red-500 text-sm'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                    parking_users.status === "Admin" ?  <p className='text-blue-500 text-sm'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                    parking_users.status === "New User" ?  <p className='text-orange-500 text-sm'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p>
+                }
+            <br />
+                <div className='flex gap-10'>
+                    <p className='text-lg'>Account Balance: <span className='font-bold text-'> Php {parking_users.balance} </span></p> 
+                    <button className=' py-1 px-4 bg-black text-white rounded-lg'>Deposit</button>
+                </div>      
+            <br />
+                <div>
+                    <p className='text-lg'>Vehicle Info</p>
+                        <table className='text-left'>
+                            <tr>
+                                <th>Plate Number</th>
+                                <th>Type</th>
+                                <th>Color</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" />
+                                </td>
+                                <td>
+                                 <input type="text" />
+                                </td>
+                                <td>
+                                 <input type="text" />  
+                                </td>
+                                <td>
+                                    <button className='bg-black text-white px-4 rounded-lg py-1'>Edit</button>  
+                                </td>
+                            </tr>
+                        </table>
+                </div>
                     
                 </div>
+          
                 )}
                 <button onClick={logOut}  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                 >Logout</button>

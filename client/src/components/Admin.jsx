@@ -60,7 +60,7 @@ function Admin(){
     return(
         <>
             <div className='flex  flex-col items-center justify-center'>
-                <p>admin</p>
+                <p className='text-2xl font-bold'>Admin Dashboard</p>
                 <table className='border-2 border-black table-auto text-left w-full sm:w-4/12 text-sm'>
                     <thead>
                         <tr>
@@ -112,9 +112,9 @@ function Admin(){
                                     <button onClick={() => handleEdit(parking_users)}>Edit</button>
                                 )}
                             </td>
-                            <td>
-                                <button className='flex items-center justify-center' onClick={() => handleDelete(parking_users.id)}>
-                                    <img src={delete_svg} alt="" />
+                            <td className='sm:px-10'>
+                                <button className='flex items-center justify-center w-5' onClick={() => handleDelete(parking_users.id)}>
+                                    <img src={delete_svg} alt=""/>
                                 </button>
                             </td>
                         </tr>
