@@ -5,9 +5,11 @@ import Parking from './Parking';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
 //modal
-const Reserve = ({ show, onClose }) => {
+const Reserve = ({ show, onClose, sensor }) => {
 
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
+;
+
 //fetch and display current user
 const fetchUsers = async () => {
     try {
@@ -22,6 +24,19 @@ const fetchUsers = async () => {
     fetchUsers();
   }, []);
 
+  const handleReserve = async (e) => {
+    e.preventDefault();
+    try {   
+                const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
+                    sensor,
+                });
+                alert(response.data); 
+                window.location.reload();
+               
+        }catch (error){
+            console.error(error);
+        }
+    }
 
     if (!show) return null;
 
@@ -36,18 +51,28 @@ const fetchUsers = async () => {
                 </button>
                
                 {users.map((parking_users) =>
-                <div key={parking_users.id} className='h-full w-full'>
+                <div key={parking_users.id} className='h-full w-full flex items-center justify-center'>
                     {
-                    parking_users.status == "New User" ? <p>Please wait for your account to be verified</p> : <div></div> &&
-                    parking_users.status == "Declined" ? <p>Youre aplication declined </p> : <div></div> &&
+                    parking_users.status == "New User" ? <p>Your a new user! Please update more information</p> : <div></div> &&
+                    parking_users.status == "Declined" ? <p className='text-center'>Your application declined <br /> Please update your information </p>  : <div></div> &&
+                    parking_users.status == "Updated" ? <p className='font-bold text-2xl'>Your application is being reviewed </p> : <div></div> &&
                     parking_users.status == "Verified" ? 
                     
-                    <div className='w-full h-full bg-red-100'>
 
-                      <button  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                    <div className='w-full h-full bg-red-100'>
+                    <div>
+                      <p className='text-2xl text-center font-bold'>Drivers Information</p>
+                      <p>Driver: {parking_users.firstname} {parking_users.lastname}</p>
+                      <p>Account Balance: Php {parking_users.balance}</p>
+                      <p>Plate Number: {parking_users.plate_num}</p>  
+                      <p>Car Color: {parking_users.color}</p>
+                      <p>Car Type: {parking_users.type}</p>
+                    </div>
+                      <button onClick={handleReserve} className="mt-4 bg-black text-white px-4 py-2 rounded-md hover:bg-red-600"
                          >Reserve
                       </button>
                     </div>     : <div></div>
+                   
                     }
                 </div>
                 )}

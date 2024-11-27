@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import delete_svg from '../assets/delete_b.svg';
+import Message from './Message';
 
 function Admin(){
 
@@ -15,6 +16,9 @@ function Admin(){
         try {
           const response = await axios.get('http://localhost:5000/admin');
           setUsers(response.data);
+          if(response.data.length == 0){
+            navigate('/');
+          }
         } catch (error) {
           console.error('Error fetching users:', error);
         }
@@ -60,7 +64,10 @@ function Admin(){
     return(
         <>
             <div className='flex  flex-col items-center justify-center'>
-                <p className='text-2xl font-bold'>Admin Dashboard</p>
+               <nav className='flex gap-10'>
+                <p>Admin Dashboard</p>
+                <Message/>
+               </nav>
                 <table className='border-2 border-black table-auto text-left w-full sm:w-4/12 text-sm'>
                     <thead>
                         <tr>
@@ -121,7 +128,7 @@ function Admin(){
                         )}
                     </tbody>
                 </table>
-                
+            
             </div>
         </>
     )

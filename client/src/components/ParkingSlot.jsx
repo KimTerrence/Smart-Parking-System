@@ -4,7 +4,7 @@ import Reserve from '../components/Reserve'
 
 import { useState } from 'react';
 
-function ParkingSlot({status, slot, img}){
+function ParkingSlot({status, slot, img, sensor}){
 
     const [isReserveOpen, setReserveOpen] = useState(false);
 
@@ -19,12 +19,13 @@ function ParkingSlot({status, slot, img}){
                 <p className='text-black font-bold'>Slot {slot}  </p>
                 <div className='relative'>
                     <img src={bg} alt="" className='w-26 sm:w-full px-10 sm:top-12'/>
-                    <img src={img} alt="" className='absolute  w-10 top-9 left-16 sm:left-0 sm:w-full sm:px-20 sm:top-14 '/>
+                    <img src={img} alt="" className='absolute  w-10 top-9 left-16 sm:left-4 sm:w-full  sm:px-20 sm:top-14'/>
                 </div>
                 <p className='text-center text-l font-bold text-black'>{status}</p>
             </div>
-            <button className='bg-black w-24 h-10 rounded-lg text-white' onClick={openReserve}>Reserve</button>
-            <Reserve show={isReserveOpen} onClose={closeReserve}/>
+            {status === "Available" ? <button className='bg-blue-800 w-24 h-10 rounded-lg text-white' onClick={openReserve}>Reserve</button> : <button className='bg-red-500 w-24 h-10 rounded-lg text-white'>Reserve</button>}
+            
+            <Reserve show={isReserveOpen} onClose={closeReserve} sensor={sensor}/>
         </div>
     )
 }

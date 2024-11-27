@@ -134,12 +134,14 @@ if(sensorData.sensor5 == 1){ //slot4
                 slot={1}
                 status={status1}
                 img={carimg1}
+                sensor={2}
                 />
 
               <ParkingSlot
                 slot={2}
                 status={status2}
                 img={carimg2}
+                sensor={3}
                 />
               </div>
               
@@ -148,12 +150,14 @@ if(sensorData.sensor5 == 1){ //slot4
                 slot={3}
                 status={status3}
                 img={carimg3}
+                sensor={4}
                 />
 
                 <ParkingSlot
                 slot={4}
                 status={status4}
                 img={carimg4}
+                sensor={5}
                 />
               </div>
            

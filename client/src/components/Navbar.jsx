@@ -20,9 +20,8 @@ const fetchUsers = async () => {
       const response = await axios.get('http://localhost:5000/login');
       setUsers(response.data);
       if(response.data.length == 0){
-       // navigate('/');
+        navigate('/');
       }
-      console.log(response.data.length)
     } catch (error) {
       console.error('Error fetching users:', error);
     }
@@ -34,9 +33,9 @@ const fetchUsers = async () => {
 
    
     return(
-        <div id="navbar" className="hidden sm:flex fixed bg-white h-16 w-full px-20  flex-row items-center justify-between z-20">
-            <div className='w-60'>SPS</div>
-            <nav className="text-l flex gap-10">
+        <div id="navbar" className="flex fixed bg-white h-16 w-full px-5 sm:px-20 flex-row items-center justify-between sm:justify-between z-20">
+            <div className='w-60 flex items-center justify-start'>SPS</div>
+            <nav className="text-l  gap-10 hidden sm:flex">
                 <a href="#home" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Home</a>
                 <a href="#parking" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Parking</a>
                 <a href="#about" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">About</a>
@@ -45,7 +44,7 @@ const fetchUsers = async () => {
             {users.map((parking_users) => 
             <div key={parking_users.id} onClick={openProfile} className='flex gap-2 cursor-pointer w-60 justify-end'>
                 <img src={profsvg} alt="Profile"/>
-                <p>{parking_users.firstname} {parking_users.lastname}</p>
+                <p className='hidden sm:visible'>{parking_users.firstname} {parking_users.lastname}</p>
             </div>
             )}
 {

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 app.use(cors({
   origin: 'http://localhost:5173' // Allow requests from React app
- // origin: 'http://192.168.8.105:5173'
+  //origin: 'http://192.168.8.106:5173'
 }));
 
 
@@ -86,14 +86,14 @@ app.get('/login', (req, res) => {
 );
 });
 
-// ----  vehicle prof
-app.put('/login/:id', (req, res) => {
-  const { status } = req.body;
-  const { id } = req.params;
-  db.query('UPDATE parking_users SET status = ? WHERE id = ?', [status, id], (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.json({ message: 'User updated successfully' });
-  });
+//update vehicle info 
+app.post('/vehicle', (req, res) => {
+  const {plate, color, type} = req.body;
+  db.query(`update parking_users set plate_num = "${plate}", color = "${color}", type = "${type}" , status = "Updated" where username = "${username}" and password = "${passwd}" and status <>  "admin"`,
+    (err, results) => {
+      res.json(results);
+      }
+);
 });
 
 }
@@ -137,6 +137,12 @@ app.put('/admin/:id', (req, res) => {
   });
 });
 
+//Reserve
+app.post('/reserve', (req, res) => {
+  const {sensor} = req.body;
+  db.query(`update sensor set sensor${sensor} = 1`);
+  db.query(`update parking_users set balance = balance - 20`)
+})
 
 
 
@@ -165,8 +171,47 @@ app.delete('/delete/:id', (req, res) => {
   });
 });
 
+//---------------------------tryyyyyyyyyyyyyyyy
+app.post('/sensor-data', (req, res) => {
+  const { sensor1, sensor2, sensor3, sensor4, sensor5 } = req.body;
+  console.log('Received sensor data:');
+  console.log(`Sensor 1: ${sensor1}`);
+  console.log(`Sensor 2: ${sensor2}`);
+  console.log(`Sensor 3: ${sensor3}`);
+  console.log(`Sensor 4: ${sensor4}`);
+  console.log(`Sensor 5: ${sensor5}`);
+
+  if(sensor2 == 0){
+    db.query('update sensor set sensor2 = 1;');
+  }else if(sensor1 == 1){
+    db.query('update sensor set sensor2 = 0;');
+  }
+
+  if(sensor3 == 0){
+    db.query('update sensor set sensor3 = 1;');
+  }else if(sensor3 == 1){
+    db.query('update sensor set sensor3 = 0;');
+  }
+
+  if(sensor4 == 0){
+    db.query('update sensor set sensor4 = 1;');
+  }else if(sensor4 == 1){
+    db.query('update sensor set sensor4 = 0;');
+  }
+
+  if(sensor5 == 0){
+    db.query('update sensor set sensor5 = 1;');
+  }else if(sensor5 == 1){
+    db.query('update sensor set sensor5 = 0;');
+  }
+
+
+  // Process or store the data as needed
+  res.send('resS');
+});
 
 //-----esp8266-websocket---------------------------------
+/*
 const wss = new WebSocket.Server({ port: 8080});
 
 // Variable to store the sensor state
@@ -213,17 +258,20 @@ wss.on('connection', (ws) => {
       db.query('update sensor set sensor5 = 0;');
     }
     
-    console.log(message);
+    ws.send("slot1Res");
+ // console.log(message); // display buffer to console
   });
+
+  
 
   ws.on('close', () => {
     console.log('ESP8266 disconnected');
   });
 });
 
+*/
+
 const server = http.createServer(app);
-
-
 
 // API Route to fetch the latest sensor data
 app.get('/latest-sensor-data', (req, res) => {

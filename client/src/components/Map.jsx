@@ -5,8 +5,8 @@ const Modal = ({ show, onClose }) => {
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-            <div className=" bg-white rounded-lg shadow-lg w-1/2 h-4/6 p-10 relative">
+        <div className="w-full h-screen  fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-2 sm:p-0 z-50">
+            <div className=" bg-white rounded-lg shadow-lg w-full sm:w-1/2 h-4/6 sm:p-10 relative">
                 <button
                     className="p-5 absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl"
                     onClick={onClose}
