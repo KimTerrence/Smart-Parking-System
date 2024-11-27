@@ -24,18 +24,19 @@ const fetchUsers = async () => {
     fetchUsers();
   }, []);
 
+    var balance;
+    console.log(balance)
   const handleReserve = async (e) => {
     e.preventDefault();
     try {   
-                const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
+                 const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
                     sensor,
                 });
-                alert(response.data); 
                 window.location.reload();
-               
         }catch (error){
             console.error(error);
         }
+        
     }
 
     if (!show) return null;
@@ -53,6 +54,7 @@ const fetchUsers = async () => {
                 {users.map((parking_users) =>
                 <div key={parking_users.id} className='h-full w-full flex items-center justify-center'>
                     {
+                      
                     parking_users.status == "New User" ? <p>Your a new user! Please update more information</p> : <div></div> &&
                     parking_users.status == "Declined" ? <p className='text-center'>Your application declined <br /> Please update your information </p>  : <div></div> &&
                     parking_users.status == "Updated" ? <p className='font-bold text-2xl'>Your application is being reviewed </p> : <div></div> &&
@@ -71,8 +73,8 @@ const fetchUsers = async () => {
                       <button onClick={handleReserve} className="mt-4 bg-black text-white px-4 py-2 rounded-md hover:bg-red-600"
                          >Reserve
                       </button>
-                    </div>     : <div></div>
-                   
+                    </div>     : <div> {balance = parking_users.balance}</div>
+                  
                     }
                 </div>
                 )}

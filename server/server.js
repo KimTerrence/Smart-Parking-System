@@ -137,13 +137,6 @@ app.put('/admin/:id', (req, res) => {
   });
 });
 
-//Reserve
-app.post('/reserve', (req, res) => {
-  const {sensor} = req.body;
-  db.query(`update sensor set sensor${sensor} = 1`);
-  db.query(`update parking_users set balance = balance - 20`)
-})
-
 
 
 //-----sensor
@@ -171,44 +164,53 @@ app.delete('/delete/:id', (req, res) => {
   });
 });
 
-//---------------------------tryyyyyyyyyyyyyyyy
-app.post('/sensor-data', (req, res) => {
-  const { sensor1, sensor2, sensor3, sensor4, sensor5 } = req.body;
-  console.log('Received sensor data:');
-  console.log(`Sensor 1: ${sensor1}`);
-  console.log(`Sensor 2: ${sensor2}`);
-  console.log(`Sensor 3: ${sensor3}`);
-  console.log(`Sensor 4: ${sensor4}`);
-  console.log(`Sensor 5: ${sensor5}`);
+//---------------------------sensor-data and Reserve
+//Reserve
+app.post('/reserve', (req, res) => {
+  const {sensor ,balance } = req.body;
+  db.query(`update sensor set sensor${sensor} = 1`);
+  db.query(`update parking_users set balance = balance - 20`)
+})
 
-  if(sensor2 == 0){
-    db.query('update sensor set sensor2 = 1;');
-  }else if(sensor1 == 1){
-    db.query('update sensor set sensor2 = 0;');
-  }
+//Get Sensor Data
+const sensorData = () => {
 
-  if(sensor3 == 0){
-    db.query('update sensor set sensor3 = 1;');
-  }else if(sensor3 == 1){
-    db.query('update sensor set sensor3 = 0;');
-  }
+  let sensorData = {}; // Store latest sensor data
 
-  if(sensor4 == 0){
-    db.query('update sensor set sensor4 = 1;');
-  }else if(sensor4 == 1){
-    db.query('update sensor set sensor4 = 0;');
-  }
+  app.post('/send-data', (req, res) => { ///from react
+    const { message } = req.body;
+  })
+  
 
-  if(sensor5 == 0){
-    db.query('update sensor set sensor5 = 1;');
-  }else if(sensor5 == 1){
-    db.query('update sensor set sensor5 = 0;');
-  }
+  app.post('/sensor-data', (req, res) => {
+    var { sensor, value } = req.body;
+  
+    if (sensor !== undefined && value !== undefined) {
+      sensorData[`Sensor ${sensor}`] = value; // Store data
+      console.log(`Received data: Sensor ${sensor}, Value: ${value}`);
+      res.status(200).send(`Sensor ${sensor} data received.`);
+    } else {
+      console.log('Invalid data received:', req.body);
+      res.status(400).send('Invalid data format');
+    }
 
+    if(value == 1){
+      db.query(`update sensor set  sensor${sensor} = 0`);
+    }else if(value == 0){
+      db.query(`update sensor set  sensor${sensor} = 1`);
+    }
+  
+  });
 
-  // Process or store the data as needed
-  res.send('resS');
+  // Endpoint to send the latest sensor data
+app.get('/sensor-data', (req, res) => {
+  res.json(sensorData); // Send the latest sensor data as JSON
 });
+
+}
+
+sensorData();
+
 
 //-----esp8266-websocket---------------------------------
 /*
