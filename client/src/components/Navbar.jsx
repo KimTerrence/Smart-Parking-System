@@ -20,7 +20,7 @@ const fetchUsers = async () => {
       const response = await axios.get('http://localhost:5000/login');
       setUsers(response.data);
       if(response.data.length == 0){
-        navigate('/');
+        //navigate('/');
       }
     } catch (error) {
       console.error('Error fetching users:', error);
