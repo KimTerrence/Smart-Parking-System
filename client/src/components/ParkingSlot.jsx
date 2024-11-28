@@ -23,7 +23,7 @@ function ParkingSlot({status, slot, img, sensor}){
                 </div>
                 <p className='text-center text-l font-bold text-black'>{status}</p>
             </div>
-            {status === "Available" ? <button className='bg-blue-800 w-24 h-10 rounded-lg text-white' onClick={openReserve}>Reserve</button> : <button className='bg-red-500 w-24 h-10 rounded-lg text-white'>Reserve</button>}
+            {status === "Available" ? <button className='bg-blue-800 w-24 h-10 rounded-lg text-white' onClick={openReserve}>Reserve</button> : <button className='bg-blue-800/60 w-24 h-10 rounded-lg text-white'>Reserve</button>}
             
             <Reserve show={isReserveOpen} onClose={closeReserve} sensor={sensor}/>
         </div>

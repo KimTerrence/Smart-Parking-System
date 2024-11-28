@@ -96,6 +96,15 @@ app.post('/vehicle', (req, res) => {
 );
 });
 
+app.post('/deposit', (req, res) => {
+  const {amount} = req.body;
+  db.query(`update parking_users set balance = balance + "${amount}"`,
+    (err, results) => {
+      res.json(results);
+      }
+);
+});
+
 }
 
 UserLogin()

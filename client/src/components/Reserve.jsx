@@ -24,13 +24,12 @@ const fetchUsers = async () => {
     fetchUsers();
   }, []);
 
-    var balance;
-    console.log(balance)
+   var username = users.username;
   const handleReserve = async (e) => {
     e.preventDefault();
     try {   
                  const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
-                    sensor,
+                    sensor, username
                 });
                 window.location.reload();
         }catch (error){
@@ -61,8 +60,8 @@ const fetchUsers = async () => {
                     parking_users.status == "Verified" ? 
                     
 
-                    <div className='w-full h-full bg-red-100'>
-                    <div>
+                    <div className='w-full h-full bg-slate-50 p-10 m-10 text-center flex flex-col items-center justify-between'>
+                    <div className='flex flex-col  gap-5'>
                       <p className='text-2xl text-center font-bold'>Drivers Information</p>
                       <p>Driver: {parking_users.firstname} {parking_users.lastname}</p>
                       <p>Account Balance: Php {parking_users.balance}</p>
@@ -70,7 +69,7 @@ const fetchUsers = async () => {
                       <p>Car Color: {parking_users.color}</p>
                       <p>Car Type: {parking_users.type}</p>
                     </div>
-                      <button onClick={handleReserve} className="mt-4 bg-black text-white px-4 py-2 rounded-md hover:bg-red-600"
+                      <button onClick={handleReserve} className="mt-4 bg-black text-white px-4 py-2 rounded-md w-1/2  hover:bg-red-600"
                          >Reserve
                       </button>
                     </div>     : <div> {balance = parking_users.balance}</div>
