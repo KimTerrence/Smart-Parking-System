@@ -63,72 +63,83 @@ function Admin(){
 
     return(
         <>
-            <div className='flex  flex-col items-center justify-center'>
-               <nav className='flex gap-10'>
-                <p>Admin Dashboard</p>
-                <Message/>
-               </nav>
-                <table className='border-2 border-black table-auto text-left w-full sm:w-4/12 text-sm'>
-                    <thead>
-                        <tr>
-                            <th className='sm:px-10'>Id</th>
-                            <th className='sm:px-10'>Name</th>
-                            <th className='sm:px-10'>Lastname</th>
-                            <th className='sm:px-10'>Info</th>
-                            <th className='sm:px-10'>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                        {users.map((parking_users) => 
-                        <tr key={parking_users.id }> 
-                            <td className='sm:px-10 py-2'>
-                            {parking_users.id}
-                            </td>
-                            <td className='sm:px-10 py-2'>
-                            {parking_users.firstname}
-                            </td>
-                            <td className='sm:px-10 py-2'>
-                            {parking_users.lastname}
-                            </td>
-                            <td className='sm:px-10 py-2'>
-                            Info
-                            </td>
-                            <td className='sm:px-10 py-2'>
-                            {editingUser && editingUser.id === parking_users.id ? (
-                                     <select name="status" onChange={handleChange}>
-                                     <option value="">{parking_users.status}</option>
-                                     <option value="Verified">Verify</option>
-                                     <option value="Declined">Decline</option>
-                                     <option value="Admin">Admin</option>
-                                 </select>
-                                 
-                                ) : (
-                                
-                                    parking_users.status === "Verified" ?  <p className='text-green-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
-                                    parking_users.status === "Declined" ?  <p className='text-red-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
-                                    parking_users.status === "Admin" ?  <p className='text-blue-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
-                                    parking_users.status === "New User" ?  <p className='text-orange-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p>
+            <div className='flex  flex-col items-center justify-center bg-gray-300 h-screen'>
+               
+                <div className='p-5 bg-white flex flex-col rounded-lg items-center justify-center shadow-lg'>
 
+                    <nav className='flex gap-10 py-5'>
+                    <p className='text-4xl'>Admin Dashboard</p>
+                    {
+                        //  <Message/> 
+                      }
+                    </nav>
+
+                    <div className='h-10'>
+                      <a href=""></a>
+                      <a href="./" className='className="w-60 mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600'>Logout</a>
+                    </div>
+
+                    <table className='border-2 border-black table-auto text-left w-full sm:w-4/12 text-sm'>
+                        <thead>
+                            <tr>
+                                <th className='sm:px-10'>Id</th>
+                                <th className='sm:px-10'>Name</th>
+                                <th className='sm:px-10'>Lastname</th>
+                                <th className='sm:px-10'>Info</th>
+                                <th className='sm:px-10'>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            {users.map((parking_users) => 
+                            <tr key={parking_users.id }> 
+                                <td className='sm:px-10 py-2'>
+                                {parking_users.id}
+                                </td>
+                                <td className='sm:px-10 py-2'>
+                                {parking_users.firstname}
+                                </td>
+                                <td className='sm:px-10 py-2'>
+                                {parking_users.lastname}
+                                </td>
+                                <td className='sm:px-10 py-2'>
+                                Info
+                                </td>
+                                <td className='sm:px-10 py-2'>
+                                {editingUser && editingUser.id === parking_users.id ? (
+                                        <select name="status" onChange={handleChange}>
+                                        <option value="">{parking_users.status}</option>
+                                        <option value="Verified">Verify</option>
+                                        <option value="Declined">Decline</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
                                     
-                                )}
-                            </td>   
-                            <td className='sm:px-10'>
-                               {editingUser && editingUser.id === parking_users.id ? (
-                                    <button onClick={handleSave}>Save</button>
-                                ) : (
-                                    <button onClick={() => handleEdit(parking_users)}>Edit</button>
-                                )}
-                            </td>
-                            <td className='sm:px-10'>
-                                <button className='flex items-center justify-center w-5' onClick={() => handleDelete(parking_users.id)}>
-                                    <img src={delete_svg} alt=""/>
-                                </button>
-                            </td>
-                        </tr>
-                        )}
-                    </tbody>
-                </table>
-            
+                                    ) : (
+                                    
+                                        parking_users.status === "Verified" ?  <p className='text-green-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                                        parking_users.status === "Declined" ?  <p className='text-red-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                                        parking_users.status === "Admin" ?  <p className='text-blue-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p> &&
+                                        parking_users.status === "New User" ?  <p className='text-orange-500'>{parking_users.status}</p> : <p className=''>{parking_users.status}</p>
+
+                                        
+                                    )}
+                                </td>   
+                                <td className='sm:px-10'>
+                                {editingUser && editingUser.id === parking_users.id ? (
+                                        <button onClick={handleSave}>Save</button>
+                                    ) : (
+                                        <button onClick={() => handleEdit(parking_users)}>Edit</button>
+                                    )}
+                                </td>
+                                <td className='sm:px-10'>
+                                    <button className='flex items-center justify-center w-5' onClick={() => handleDelete(parking_users.id)}>
+                                        <img src={delete_svg} alt=""/>
+                                    </button>
+                                </td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </>
     )
