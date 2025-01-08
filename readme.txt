@@ -16,6 +16,8 @@ client:
     npm install -D tailwindcss postcss autoprefixer     //tailwind css for styling website
     npx tailwindcss init -p     //https://tailwindcss.com/docs/guides/vite
 
+    npm i react-sweetalert2 //customize alert popop
+
 
 
 server:
