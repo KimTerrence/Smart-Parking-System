@@ -19,10 +19,10 @@ function Home(){
             </h2>
             <div className='flex gap-5 justify-center sm:justify-start'>
               <a href='#parking' className='flex items-center bg-black text-white px-4 py-4 rounded-xl text-sm font-bold' >View Parking</a>
-              <button onClick={""} className='hidden border-2 border-black px-2 py-3 rounded-xl text-sm sm:flex'>
+              <a href='../assets/smart_parking.apk' download="SmartParking.apk" className='hidden border-2 border-black px-2 py-3 rounded-xl text-sm sm:flex'>
                 <img src={andsvg} alt="androis icon" />
                 Android Version
-              </button>
+              </a>
             </div>
           </div>
 
