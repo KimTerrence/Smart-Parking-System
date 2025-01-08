@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import {Navigate, useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2'
     
 const Wallet = () => {
 
@@ -15,8 +16,16 @@ const Wallet = () => {
                 const response = await axios.post('http://localhost:5000/deposit', { //-----vjivle----
                     amount,
                 });
-                alert("Deposit Sucessful"); 
-                navigate('/main');
+                //alert("Deposit Sucessful");
+                 Swal.fire({
+                    text: 'Deposit Sucessful',
+                    icon: 'success',
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                    navigate('/main');
+                }
+                })
         }catch (error){
             console.error(error);
         }

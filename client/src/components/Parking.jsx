@@ -2,6 +2,7 @@ import ParkingSlot from "./ParkingSlot"
 import React, { useState, useEffect } from 'react';
 import car from '../assets/car.png'
 import Map from './Map'
+import Swal from 'sweetalert2'
 
 function Parking(){
  
@@ -88,7 +89,12 @@ if(sensorData.sensor5 == 1){ //slot4
   const offNotif = () => {
     if (Notification.permission === "granted") {
       Notification.requestPermission().then(permission => {
-        alert("To fully disable notifications, please go to your browser settings.");
+        //alert("To fully disable notifications, please go to your browser settings.");
+         Swal.fire({
+            text: 'To fully disable notifications, please go to your browser settings',
+            icon: 'info',
+            confirmButtonText: 'Okay'
+          })
       });
     }
   }
@@ -96,11 +102,14 @@ if(sensorData.sensor5 == 1){ //slot4
     let notificationTimeout;
 
     const handleVisibilityChange = () => {
-      if (document.hidden && status1 == "Available") {
+      if (document.hidden ){
+        if(status1 ==  "Available" || status2  == "Available" || status3 == "Available" || status4 == "Available") {
         // Delay the notification by 5 seconds
         notificationTimeout = setTimeout(() => {
           sendPushNotification();
-        }, 3000);
+        
+        }, 5000);
+      }
       } else {
         // Clear timeout if the user returns before delay ends
         clearTimeout(notificationTimeout);

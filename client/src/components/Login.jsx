@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 
@@ -9,6 +10,8 @@ function Login(){
     const [uname, setUname] = useState('');
     const [pw, setPw] = useState('');
     const navigate = useNavigate();
+   
+
 
 const handleLogin = async (e) => {
     e.preventDefault();
@@ -29,8 +32,13 @@ const handleLogin = async (e) => {
             if (response.data.code === 200) {
                 navigate('/main');
               } else {
-                alert(response.data.message);
-              }
+               //  alert(response.data.message);
+              Swal.fire({
+                text: response.data.message,
+                icon: 'error',
+                confirmButtonText: 'Okay'
+              })
+            }
             } catch (error) {
               console.error(error);
             }

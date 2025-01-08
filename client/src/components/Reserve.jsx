@@ -4,6 +4,8 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import Parking from './Parking';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'
+
 //modal
 const Reserve = ({ show, onClose, sensor }) => {
 
@@ -25,13 +27,25 @@ const fetchUsers = async () => {
   }, []);
 
    var username = users.username;
+   console.log(username)
   const handleReserve = async (e) => {
+    Swal.fire({
+      title: 'Note!',
+      text: '50 php will be deducted to your current balance',
+      icon: 'info',
+      confirmButtonText: 'Okay'
+    }).then((result) => {
+      if(result.isConfirmed){
+         window.location = '/main'
+      }
+    })
     e.preventDefault();
     try {   
                  const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
                     sensor, username
                 });
-                window.location.reload();
+                //window.location.reload();
+     
         }catch (error){
             console.error(error);
         }
@@ -64,6 +78,7 @@ const fetchUsers = async () => {
                     <div className='flex flex-col  gap-5'>
                       <p className='text-2xl text-center font-bold'>Drivers Information</p>
                       <p>Driver: {parking_users.firstname} {parking_users.lastname}</p>
+                      <p></p>
                       <p>Account Balance: Php {parking_users.balance}</p>
                       <p>Plate Number: {parking_users.plate_num}</p>  
                       <p>Car Color: {parking_users.color}</p>
@@ -73,6 +88,7 @@ const fetchUsers = async () => {
                          >Reserve
                       </button>
                     </div>     : <div> {balance = parking_users.balance}</div>
+                      
                   
                     }
                 </div>

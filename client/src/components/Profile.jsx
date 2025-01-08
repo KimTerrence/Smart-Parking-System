@@ -5,6 +5,8 @@ import Parking from './Parking';
 import { useState , useEffect } from 'react';
 import Wallet from '../components/Wallet.jsx';
 import axios from 'axios';
+import Swal from 'sweetalert2'
+
 //modal
 const Modal = ({ show, onClose }) => {
 
@@ -43,8 +45,16 @@ const fetchUsers = async () => {
                     type,
                     color,
                 });
-                alert("Update Sucessfully! Please wait to be verified"); 
-                window.location.reload();
+                //alert("Update Sucessfully! Please wait to be verified"); 
+                Swal.fire({
+                                text: 'Update Sucessfully! Please wait to be verified',
+                                icon: 'success',
+                                confirmButtonText: 'Okay'
+                              }).then((result) => {
+                                if(result.isConfirmed){
+                                    window.location.reload();
+                                }
+                              })
         }catch (error){
             console.error(error);
         }
@@ -104,15 +114,6 @@ const fetchUsers = async () => {
                                         <button type='submit' className='bg-black text-white px-4 rounded-lg py-1 '>Update</button>
                                     </td>
                                 </tr>
-                               
-                                
-                              
-                     
-                
-                          
-                              
-                            
-                      
                             </table>                   
                          </form>
                         )}  
