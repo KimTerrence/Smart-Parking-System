@@ -89,7 +89,7 @@ app.get('/login', (req, res) => {
 //update vehicle info 
 app.post('/vehicle', (req, res) => {
   const {plate, color, type} = req.body;
-  db.query(`update parking_users set plate_num = "${plate}", color = "${color}", type = "${type}" , status = "Updated" where username = "${username}" and password = "${passwd}" and status <>  "admin"`,
+  db.query(`update parking_users set plate_num = "${plate}", color = "${color}", type = "${type}" , status = "Updated" , time = current_timestamp where username = "${username}" and password = "${passwd}" and status <>  "admin"  `,
     (err, results) => {
       res.json(results);
       }
@@ -129,7 +129,7 @@ app.post('/admin-login', (req, res) => {
 
 //----- admin dashboard get user
 app.get('/admin', (req,res) => {
-  db.query("select * from parking_users", 
+  db.query("select * from parking_users order by time desc", 
   (err, results) => {
       res.json(results);
   }
@@ -178,7 +178,7 @@ app.delete('/delete/:id', (req, res) => {
 app.post('/reserve', (req, res) => {
   const {sensor ,balance } = req.body;
   db.query(`update sensor set sensor${sensor} = 1`);
-  db.query(`update parking_users set balance = balance - 20`)
+  db.query(`update parking_users set balance = balance - 50`)
 })
 
 //Get Sensor Data
