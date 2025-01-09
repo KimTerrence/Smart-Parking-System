@@ -49,7 +49,7 @@ const fetchUsers = async () => {
                 Swal.fire({
                                 text: 'Update Sucessfully! Please wait to be verified',
                                 icon: 'success',
-                                confirmButtonText: 'Okay'
+                                confirmButtonText: 'OK'
                               }).then((result) => {
                                 if(result.isConfirmed){
                                     window.location.reload();
@@ -97,18 +97,18 @@ const fetchUsers = async () => {
                             <table className='text-left'>
                                 <tr className='flex gap-2 flex-row items-start'> 
                                     <th className='w-full'>Plate Number</th>
-                                    <th className='w-full'>Car Color</th>
                                     <th className='w-full'>Car Type</th>
+                                    <th className='w-full'>Car Color</th>
                                 </tr>
                                 <tr className='flex gap-2 flex-row items-center'>
                                     <td>
-                                      <input type="text" className='w-full  placeholder-black/80 bg-black/10 h-10 rounded-lg' placeholder={parking_users.plate_num} value={plate} onChange={(e) => setPlate(e.target.value)}/>
+                                      <input type="text" className='px-2 w-full  placeholder-black/80 bg-black/10 h-10 rounded-lg' placeholder={parking_users.plate_num} value={plate} onChange={(e) => setPlate(e.target.value)}/>
                                     </td>
                                     <td>
-                                      <input type="text" className='w-full placeholder-black/80 bg-black/10 h-10 rounded-lg'placeholder={parking_users.type} value={type} onChange={(e) => setType(e.target.value)}/>
+                                      <input type="text" className='px-2 w-full placeholder-black/80 bg-black/10 h-10 rounded-lg'placeholder={parking_users.type} value={type} onChange={(e) => setType(e.target.value)}/>
                                     </td>
                                     <td>
-                                      <input type="text" className='w-full  placeholder-black/80 bg-black/10 h-10 rounded-lg' placeholder={parking_users.color} value={color} onChange={(e) => setColor(e.target.value)}/>  
+                                      <input type="text" className='px-2 w-full  placeholder-black/80 bg-black/10 h-10 rounded-lg' placeholder={parking_users.color} value={color} onChange={(e) => setColor(e.target.value)}/>  
                                     </td>
                                     <td>
                                         <button type='submit' className='bg-black text-white px-4 rounded-lg py-1 '>Update</button>

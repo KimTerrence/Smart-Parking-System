@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2'); //mysql database
 const WebSocket = require('ws'); //websocket
 const http = require('http');
-const { Server } = require('socket.io');
+
 
 
 const app = express();
@@ -96,9 +96,19 @@ app.post('/vehicle', (req, res) => {
 );
 });
 
+//recent parking user
+app.get('/recentReserve', (req, res) => {
+  db.query(`select * from history order by created_at desc`,
+    (err, results) => {
+      res.json(results);
+      }
+);
+});
+
+
 app.post('/deposit', (req, res) => {
-  const {amount} = req.body;
-  db.query(`update parking_users set balance = balance + "${amount}"`,
+  const {amount , username } = req.body;
+  db.query(`update parking_users set balance = balance + "${amount}" where username = "${username}"`,
     (err, results) => {
       res.json(results);
       }
@@ -176,9 +186,11 @@ app.delete('/delete/:id', (req, res) => {
 //---------------------------sensor-data and Reserve
 //Reserve
 app.post('/reserve', (req, res) => {
-  const {sensor ,balance } = req.body;
+  const {sensor ,balance, username, plate  } = req.body;
+  var slot =  parseInt(sensor) - 1;
   db.query(`update sensor set sensor${sensor} = 1`);
-  db.query(`update parking_users set balance = balance - 50`)
+  db.query(`update parking_users set balance = ${balance} - 50`)
+  db.query(`insert into history (firstname , lastname, plate, slot) select firstname, lastname , plate_num , ${slot} from parking_users where username = '${username}' && plate_num = '${plate}'`)
 })
 
 //Get Sensor Data
@@ -219,68 +231,6 @@ app.get('/sensor-data', (req, res) => {
 }
 
 sensorData();
-
-
-//-----esp8266-websocket---------------------------------
-/*
-const wss = new WebSocket.Server({ port: 8080});
-
-// Variable to store the sensor state
-let sensorData = { motionDetected: false };
-
-// WebSocket connections
-wss.on('connection', (ws) => {
-  console.log('ESP8266 connected via WebSocket');
-
-  // Receive data from ESP8266
-  ws.on('message', (message) => {
-    console.log(`Received from ESP8266: ${message}`);
-    
-    // Update sensor data
-    if (message == 'NO_SLOT') {
-      console.log("No Slot Available");
-      sensorData = true;
-      console.log(sensorData);
-      db.query('update sensor set sensor1 = 1;');
-    }else  if (message == 'SLOT_AVAILABLE') {
-      console.log("Slot Available");
-      sensorData = false;
-      console.log(sensorData);
-      db.query('update sensor set sensor1 = 0;');
-    }
-    if(message == "ir2"){
-      db.query('update sensor set sensor2 = 1;');
-    }else if(message == "noir2"){
-      db.query('update sensor set sensor2 = 0;');
-    }
-    if(message == "ir3"){
-      db.query('update sensor set sensor3 = 1;');
-    }else if(message == "noir3"){
-      db.query('update sensor set sensor3 = 0;');
-    }
-    if(message == "ir4"){
-      db.query('update sensor set sensor4 = 1;');
-    }else if(message == "noir4"){
-      db.query('update sensor set sensor4 = 0;');
-    }
-    if(message == "ir5"){
-      db.query('update sensor set sensor5 = 1;');
-    }else if(message == "noir5"){
-      db.query('update sensor set sensor5 = 0;');
-    }
-    
-    ws.send("slot1Res");
- // console.log(message); // display buffer to console
-  });
-
-  
-
-  ws.on('close', () => {
-    console.log('ESP8266 disconnected');
-  });
-});
-
-*/
 
 const server = http.createServer(app);
 

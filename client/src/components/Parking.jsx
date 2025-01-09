@@ -93,7 +93,7 @@ if(sensorData.sensor5 == 1){ //slot4
          Swal.fire({
             text: 'To fully disable notifications, please go to your browser settings',
             icon: 'info',
-            confirmButtonText: 'Okay'
+            confirmButtonText: 'OK'
           })
       });
     }

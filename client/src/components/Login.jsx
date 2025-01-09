@@ -36,7 +36,7 @@ const handleLogin = async (e) => {
               Swal.fire({
                 text: response.data.message,
                 icon: 'error',
-                confirmButtonText: 'Okay'
+                confirmButtonText: 'OK  '
               })
             }
             } catch (error) {
@@ -50,7 +50,7 @@ const handleLogin = async (e) => {
       
     }
     return(
-        <div className='bg-blue-400 sm:py-10 rounded-lg h-screen w-full flex items-center justify-center p-6'> 
+        <div className='bg-blue-400 sm:py-10 h-screen w-full flex items-center justify-center p-6'> 
             <form action="" onSubmit={handleLogin} className='bg-white flex flex-col  items-center  justify-center w-full sm:gap-5 gap-5 py-10 px-6 sm:w-4/12 rounded-xl'>
                 <p className='text-4xl font-extrabold'>Login</p>
                 <input type="text"  placeholder='Username' value={uname} onChange={(e) => setUname(e.target.value)} className='h-12 px-5 w-full sm:w-80 bg-white/70 placeholder:text-black border-collapse border-gray-400 border-2 rounded-lg text-sm'/>

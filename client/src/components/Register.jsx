@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-
+import Swal from 'sweetalert2'
 
 
 function Register(){
@@ -25,17 +25,29 @@ function Register(){
                         pw,
                     });
                     if(response.data.code === 201){
-                        alert(response.data.message);
+                        Swal.fire({
+                            text: response.data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                          })
                         navigate('/');
                     
                     }else {
                         alert(response.data.message);
                     }
                 }else{
-                    alert("password not match");
+                     Swal.fire({
+                        text: 'Password did not match',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                      })
                 }
             }else{
-                alert("empty")
+                Swal.fire({
+                    text: 'Field must not be empty',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                  })
             }   
             }catch (error){
                 console.error(error);

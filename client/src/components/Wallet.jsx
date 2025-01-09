@@ -1,20 +1,41 @@
 //Wallet 
-import { useState } from "react";
 import axios from "axios";
 import {Navigate, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { useState , useEffect } from 'react';
     
 const Wallet = () => {
 
     const [amount, setAmount] = useState('');
     const navigate = useNavigate();
+    const [users, setUsers] = useState([]);
+
+    //fetch and display current user
+    const fetchUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/login');
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };;
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  var username;
+
+  users.map((CUser) => {
+   username = CUser.username;
+  })
 
   //update vehicle info
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {   
                 const response = await axios.post('http://localhost:5000/deposit', { //-----vjivle----
-                    amount,
+                    amount, username,
                 });
                 //alert("Deposit Sucessful");
                  Swal.fire({

@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 const Reserve = ({ show, onClose, sensor }) => {
 
   const [users, setUsers] = useState([]);
-;
+  const navigate = useNavigate();
 
 //fetch and display current user
 const fetchUsers = async () => {
@@ -20,36 +20,67 @@ const fetchUsers = async () => {
     } catch (error) {
       console.error('Error fetching users:', error);
     }
-  };;
+  };
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-   var username = users.username;
-   console.log(username)
+
+
+   var balance;
+   var username;
+   var plate;
+
+   users.map((CUser) => {
+    balance = CUser.balance;
+    username = CUser.username;
+    plate = CUser.plate_num;
+   })
+
+   const Reserve = () => {
+    if(balance <= 50){
+      Swal.fire({
+        text: 'Not enough balance',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+    }else{
+      handleReserve(e)
+    }
+   }
   const handleReserve = async (e) => {
-    Swal.fire({
-      title: 'Note!',
-      text: '50 php will be deducted to your current balance',
-      icon: 'info',
-      confirmButtonText: 'Okay'
-    }).then((result) => {
-      if(result.isConfirmed){
-         window.location = '/main'
-      }
-    })
+   
     e.preventDefault();
+    if(balance <= 49){
+      Swal.fire({
+        text: 'Not enough balance',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if(result.isConfirmed){
+            window.location.reload();
+        }
+      })
+    }else{
+      Swal.fire({
+        text: 'Success',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if(result.isConfirmed){
+            window.location.reload();
+        }
+      })
     try {   
-                 const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
-                    sensor, username
-                });
-                //window.location.reload();
-     
+        const response = await axios.post('http://localhost:5000/reserve', { //-----reserve----
+        sensor, balance, username, plate,
+       });
         }catch (error){
             console.error(error);
         }
-        
+      }
+     
     }
 
     if (!show) return null;

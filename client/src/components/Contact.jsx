@@ -1,7 +1,7 @@
 
 const Contact = () => {
     return (
-        <div id="contact" className="h-screen w-full bg-blue-400 px-20 pt-20">
+        <div id="contact" className="h-screen w-full bg-blue-400 px-20 pt-20 pb-10">
             <div className="bg-white h-full w-full px-20 flex items-center justify-center rounded-xl">
                 <div className="w-1/2">
                     <form className="flex flex-col bg-black/5 shadow-sm shadow-black/40 rounded-lg p-10 gap-5" action="">
