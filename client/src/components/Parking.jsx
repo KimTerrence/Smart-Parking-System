@@ -4,6 +4,7 @@ import car from '../assets/car.png'
 import Map from './Map'
 import Swal from 'sweetalert2'
 import Navbar from "./Navbar";
+import { motion } from "framer-motion";
 
 function Parking(){
  
@@ -129,51 +130,94 @@ if(sensorData.sensor5 == 1){ //slot4
     
 
     return(
+      <div>
+<Navbar/>
      
         <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-2 sm:px-20 pt-20 pb-5 -top-20 bg-blue-400">
           
           <div className="bg-white h-full w-full flex flex-col items-center justify-center gap-5 rounded-xl px-2 sm:px-20">
-            <p className="w-5/6 sm:text-3xl font-bold text-center">Parking Slots</p>
+            <motion.p 
+              initial={{ y: -200 }} // Start fully transparent
+              animate={{ y: 0 }} // Fade in to fully visible
+              transition={{ duration: 0.1 , delay: 2}} // Duration in seconds   
+            className="w-5/6 sm:text-3xl font-bold text-center">Parking Slots</motion.p>
             <div className="w-full px-5 flex gap-5 ">
-              <button className="px-5 py-2 border-2 border-black bg-black text-xs font-bold text-white rounded-lg sm:text-sm" onClick={openModal}>View Map</button>
+              <motion.button
+              initial={{ y: -200 }} // Start fully transparent
+              animate={{ y:  0}} // Fade in to fully visible
+              transition={{ duration: 0.5 , delay: 2.5}} // Duration in seconds 
+              className="px-5 py-2 border-2 border-black bg-black text-xs font-bold text-white rounded-lg sm:text-sm" onClick={openModal}>View Map</motion.button>
               <Map show={isModalOpen} onClose={closeModal}/>
-              <button className="px-5 py-2 border-2 border-black rounded-lg text-xs font-bold sm:text-sm" onClick={Notification.permission === "granted" ? offNotif :  onNotif}>{Notification.permission === "granted" ? "Disable Notification" : "Enable Notification"}</button>
+              
+              <motion.button
+                initial={{ y: -200 }} // Start fully transparent
+                animate={{ y:  0}} // Fade in to fully visible
+                transition={{ duration: 0.5 , delay: 2.2}} // Duration in seconds 
+               className="px-5 py-2 border-2 border-black rounded-lg text-xs font-bold sm:text-sm" onClick={Notification.permission === "granted" ? offNotif :  onNotif}>{Notification.permission === "granted" ? "Disable Notification" : "Enable Notification"}</motion.button>
             </div>
             <div className="flex w-full justify-center gap-2 sm:gap-5 items-center sm:flex flex-col sm:flex-row sm:px-5">
               <div className="flex w-full gap-2 sm:gap-5 sm:justify-end justify-center">
-                <ParkingSlot
-                slot={1}
-                status={status1}
-                img={carimg1}
-                sensor={2}
-                />
 
-              <ParkingSlot
-                slot={2}
-                status={status2}
-                img={carimg2}
-                sensor={3}
-                />
+              <motion.div
+                initial={{ opacity: 0 }} // Start fully transparent
+                animate={{ opacity: 100 }} // Fade in to fully visible
+                transition={{ duration: 1 , delay: 2.6}} // Duration in seconds    
+              >
+                  <ParkingSlot
+                  slot={1}
+                  status={status1}
+                  img={carimg1}
+                  sensor={2}
+                  />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }} // Start fully transparent
+                animate={{ opacity: 100 }} // Fade in to fully visible
+                transition={{ duration: 1 , delay: 2.2}} // Duration in seconds    
+              >
+                  <ParkingSlot
+                  slot={2}
+                  status={status2}
+                  img={carimg2}
+                  sensor={3}
+                  />
+              </motion.div>
+              
               </div>
               
+              
               <div className="flex w-full gap-2 sm:gap-5 sm:justify-end justify-center">
+
+              <motion.div
+                initial={{ opacity: 0 }} // Start fully transparent
+                animate={{ opacity: 100 }} // Fade in to fully visible
+                transition={{ duration: 1 , delay: 2.4}} // Duration in seconds    
+              >
                 <ParkingSlot
                 slot={3}
                 status={status3}
                 img={carimg3}
                 sensor={4}
                 />
-
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }} // Start fully transparent
+                animate={{ opacity: 100 }} // Fade in to fully visible
+                transition={{ duration: 1 , delay: 2.6}} // Duration in seconds    
+              >
                 <ParkingSlot
                 slot={4}
                 status={status4}
                 img={carimg4}
                 sensor={5}
                 />
+                 </motion.div>
               </div>
            
             </div>
             </div>
+        </div>
         </div>
     )
 }
