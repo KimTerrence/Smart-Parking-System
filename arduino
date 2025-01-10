@@ -9,7 +9,7 @@ Servo servo;
 
 const char* ssid = "HUAWEI-E5330-6FF2";
 const char* password = "m7t05htj";
-const char* serverUrl = "http://192.168.8.108:5000/sensor-data";
+const char* serverUrl = "http://192.168.8.108:5000/sensor-data"; 
 
 WiFiClient wifiClient; // Declare WiFiClient object globally
 
