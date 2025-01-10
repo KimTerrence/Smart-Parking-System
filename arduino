@@ -1,164 +1,124 @@
 #include <ESP8266WiFi.h>
-#include <WebSocketsClient.h>
+#include <ESP8266HTTPClient.h>
+
+#include <Servo.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+Servo servo;
 
 const char* ssid = "HUAWEI-E5330-6FF2";
 const char* password = "m7t05htj";
+const char* serverUrl = "http://192.168.8.108:5000/sensor-data";
 
-//-----IR sensor pin
-const int irSensorPin1 = D1;
-const int irSensorPin2 = D2;
-const int irSensorPin3 = D3;
-const int irSensorPin4 = D4;
+WiFiClient wifiClient; // Declare WiFiClient object globally
 
-// -----WebSocket client
-WebSocketsClient webSocket;
+// Define sensor pins
+const int sensor1Pin = D3;
+const int sensor2Pin = D4;
+const int sensor3Pin = D5;
+const int sensor4Pin = D6;
+const int sensor5Pin = D7; // Analog sensor (if needed)
 
-void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
-  switch (type) {
-    case WStype_DISCONNECTED:
-      Serial.println("Disconnected from WebSocket server");
-      break;
-    case WStype_CONNECTED:
-      Serial.println("Connected to WebSocket server");
-      // Send a message to the server
-      webSocket.sendTXT("ESP8266 connected");
-      break;
-    case WStype_TEXT:
-      Serial.printf("Message from server: %s\n", payload);
-      break;
+// Variables to track sensor states
+int prevSensorValues[5] = {-1, -1, -1, -1, -1};
+const int sensorPins[5] = {sensor1Pin, sensor2Pin, sensor3Pin, sensor4Pin, sensor5Pin};
+
+// Store message from the website
+String response = "";
+
+void sendPostRequest(int sensorIndex, int sensorValue) {
+  HTTPClient http;
+  http.begin(wifiClient, serverUrl);
+  http.addHeader("Content-Type", "application/json");
+
+  // Prepare JSON payload
+  String payload = "{";
+  payload += "\"sensor\": " + String(sensorIndex + 1) + ",";
+  payload += "\"value\": " + String(sensorValue);
+  payload += "}";
+
+  // Debug payload
+  Serial.println("Sending Payload: " + payload);
+
+  int httpCode = http.POST(payload);
+  if (httpCode > 0) {
+    response = http.getString(); // Capture the response
+    Serial.println("Server response: " + response);
+  } else {
+    Serial.println("Error on HTTP request, Code: " + String(httpCode));
   }
+  http.end();
 }
 
+
+// Setup function
 void setup() {
-  Serial.begin(115200);
-
-  // Setup IR sensor pin
-  pinMode(irSensorPin1, INPUT);
-
-  // Connect to WiFi
+  Serial.begin(9600);
   WiFi.begin(ssid, password);
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
 
-  // Setup WebSocket connection
-  webSocket.begin("192.168.8.105", 8080); //-----server IP and port
-  webSocket.onEvent(webSocketEvent);
-}
-
-void loop() {
-  webSocket.loop();
-
-  //-----Read data from IR sensor
-  int irSensorValue1 = digitalRead(irSensorPin1);
-  int irSensorValue2 = digitalRead(irSensorPin2);
-
-  // Send the sensor value to the WebSocket server when motion is detected
-  if (irSensorValue1 == LOW) {
-    Serial.println("P1 occupied!");
-    webSocket.sendTXT("occupied");
-    delay(1000);
+  // Initialize pins
+  for (int i = 0; i < 5; i++) {
+    pinMode(sensorPins[i], INPUT);
   }
-   if (irSensorValue2 == LOW) {
-    Serial.println("P2 occupied!");
-    webSocket.sendTXT("occupied");
-    delay(1000);
-  }
-  
-  if(irSensorValue1 == LOW && irSensorValue2 == LOW){
-    webSocket.sendTXT("No slot available");
-  }
-}
 
-
-
-//-----lcd ir buzzer
-#include <ESP8266WiFi.h>
-#include <Servo.h>
-#include <LiquidCrystal_I2C.h>
-
-LiquidCrystal_I2C lcd(0x27, 20, 4);
-Servo myServo;  // Create a servo object
-
-int ir = D3;
-int ir2 = D5;
-
-int buzzer = D8;
-
-void setup() {
-  Serial.begin(9600);
-  myServo.attach(D6);  // Attach servo to GPIO12 (D6)
-  pinMode(ir, INPUT);
-  pinMode(ir2, INPUT);
-  pinMode(buzzer, OUTPUT);
-
+  // Initialize LCD
   lcd.init();
   lcd.backlight();
+
+  // Attach servo
+  servo.attach(D8);
 }
 
+// Main loop
 void loop() {
-   int irvalue = digitalRead(ir);
-   int ir2value = digitalRead(ir2);
-if (ir2value == LOW){
-    lcd.print("No slot available");
-    Serial.println("No slot available");
-  }
-  else if(ir2value == HIGH){
-    lcd.print("Slot Available");
-       Serial.println("slot available");
-    if(irvalue == LOW){
-      myServo.write(5);
-      lcd.print("Car Detected");
-      delay(2000);
-      tone(buzzer, 600);
+  if (WiFi.status() == WL_CONNECTED) {
+    for (int i = 0; i < 5; i++) {
+      int sensorValue = digitalRead(sensorPins[i]);
 
-    }else if(irvalue == HIGH){
-      digitalWrite(buzzer, LOW);
-      myServo.write(180);
-      lcd.print("No Car Detected");
-      delay(2000);
+      // Check if the sensor value has changed
+      if (sensorValue != prevSensorValues[i]) {
+        sendPostRequest(i, sensorValue);
+        prevSensorValues[i] = sensorValue; // Update the previous value
+      }
     }
-  }
-    delay(1000);
+    lcd.setCursor(4, 0);
+     lcd.print("WELCOME!");
+
+    // Component Functions (Gate and LCD Logic)
+    if (digitalRead(sensorPins[0]) == LOW) { // Sensor1 controls the gate
+       lcd.setCursor(0, 1);
+        lcd.print("NO SLOT AVAILABLE");
+      bool allOccupied = true;
+      for (int i = 1; i < 5; i++) {
+        if (digitalRead(sensorPins[i]) == HIGH) {
+          allOccupied = false;
+          break;
+        }
+      }
+
+      if (allOccupied) {
+        servo.write(100);
+        lcd.setCursor(0, 1);
+        lcd.print("NO SLOT AVAILABLE");
+      } else {
+        servo.write(5);
+        lcd.setCursor(0, 1);
+        lcd.print("SLOT AVAILABLE");
+        delay(2000);
+        Serial.println("Gate open");
+      }
+    } else {
+      servo.write(100);
+    }
     lcd.clear();
+  }
+
+  delay(500); // Check sensors every half second
 }
-
-
-//=================================test
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-function Test(){
-
-    const [sensor, setSensor] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:5000/sensor')
-            .then(response => {
-                setSensor(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the data!', error);
-            });
-    }, []);
-
-    var a =  sensor.map(sensors => (
-        sensor.sensor1
-    ))
-    
-
-    return(
-        <ul>
-            {sensor.map(sensors => (
-            <div>
-                <p> {sensors.sensor1}</p>
-                <p>{a}</p>
-            </div>   
-            ))}
-        </ul>
-    )
-}
-
-export default Test;
