@@ -1,4 +1,5 @@
 import caimg from '../assets/free.jpeg';
+import Navbar from './Navbar';
 
 function About(){
     return(
@@ -24,4 +25,4 @@ function About(){
         </div>
     )
 }
-export default About
+export default About;

@@ -17,6 +17,9 @@ export default {
     },
     dropShadow: {
       'blue-drop': '0 2px 2px rgb(59 130 246)',
+    },
+    colors: {
+      'primary' : '#4651E5',
     }
 
 

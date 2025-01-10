@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import car from '../assets/car.png'
 import Map from './Map'
 import Swal from 'sweetalert2'
+import Navbar from "./Navbar";
 
 function Parking(){
  
@@ -128,8 +129,9 @@ if(sensorData.sensor5 == 1){ //slot4
     
 
     return(
-      
+     
         <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-2 sm:px-20 pt-20 pb-5 -top-20 bg-blue-400">
+          
           <div className="bg-white h-full w-full flex flex-col items-center justify-center gap-5 rounded-xl px-2 sm:px-20">
             <p className="w-5/6 sm:text-3xl font-bold text-center">Parking Slots</p>
             <div className="w-full px-5 flex gap-5 ">
@@ -173,7 +175,6 @@ if(sensorData.sensor5 == 1){ //slot4
             </div>
             </div>
         </div>
-        
     )
 }
 

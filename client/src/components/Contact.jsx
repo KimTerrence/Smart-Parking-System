@@ -1,3 +1,5 @@
+import Navbar from "./Navbar"
+
 
 const Contact = () => {
     return (
@@ -20,8 +22,7 @@ const Contact = () => {
                    </div>
                 </div>
             </div>
-
         </div>
     )
 }
-export default Contact
+export default Contact;

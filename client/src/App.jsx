@@ -13,14 +13,18 @@ import './index.css';
 import Test from './components/Test';
 import Admin from './components/Admin';
 import Wallet from './components/Wallet';
-
-
+import Paking from './components/Parking';
+import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
+import Navbar from './components/Navbar';
 
 function App() {
 
   return (
 
       <Router>
+        <Navbar/>
         <Routes>
           <Route path='/' element={<LandingPage/>} />
           <Route path='/main' element={<Main/>} />
@@ -29,6 +33,10 @@ function App() {
           <Route path='/test' element={<Test/>} />
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/wallet' element={<Wallet/>}/>
+          <Route path='/parking' element={<Paking/>}/>
+          <Route path='/home' element={<Home/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/contact' element={<Contact/>}/>
         </Routes>
       </Router>
 

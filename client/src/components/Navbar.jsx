@@ -4,6 +4,7 @@ import Login from './Login';
 import profsvg from '../assets/prof_b.svg';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Navbar()    {
 
@@ -36,10 +37,10 @@ const fetchUsers = async () => {
         <div id="navbar" className="flex fixed bg-white h-16 w-full px-5 sm:px-20 flex-row items-center justify-between sm:justify-between z-20">
             <div className='w-60 flex items-center justify-start'>SPS</div>
             <nav className="text-l  gap-10 hidden sm:flex">
-                <a href="#home" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Home</a>
-                <a href="#parking" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Parking</a>
-                <a href="#about" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">About</a>
-                <a href="#contact" className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Contact</a>
+                <Link to= "/home"  className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Home</Link>
+                <Link to= "/parking"  className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Parking</Link>
+                <Link to= "/about"  className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">About</Link>
+                <Link to= "/contact"  className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Contact</Link>
             </nav>
             {users.map((parking_users) => 
             <div key={parking_users.id} onClick={openProfile} className='flex gap-2 cursor-pointer w-60 justify-end'>
