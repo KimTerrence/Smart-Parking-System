@@ -55,3 +55,9 @@ Scan Available Port:sudo chmod a+rw /dev/tty/USB0
 sudo usermod -a -G dialout kcreates
 
 
+edit:
+denfended need inprovements
+-filter parking slot 
+-full automation (no guard)
+-map 
+-wallet
