@@ -35,7 +35,9 @@ const fetchUsers = async () => {
    
     return(
         <div id="navbar" className="flex fixed bg-white h-16 w-full px-5 sm:px-20 flex-row items-center justify-between sm:justify-between z-20">
-            <div className='w-60 flex items-center justify-start'>SPS</div>
+            <div className='w-60 flex items-center justify-start'>
+              <p className='font-bold text-blue-400 text-2xl font-serif'>SPS</p>
+            </div>
             <nav className="text-l  gap-10 hidden sm:flex">
                 <Link to= "/home"  className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Home</Link>
                 <Link to= "/parking"  className="px-3 py-2 hover:bg-black hover:text-white rounded-lg duration-300 ease-in">Parking</Link>

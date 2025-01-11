@@ -86,8 +86,8 @@ const fetchUsers = async () => {
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 text-black  ">
-            <div className=" bg-white rounded-lg shadow-lg w-1/2 h-4/6 p-10 relative">
+        <div className="fixed p-2 sm:p-0 inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 text-black  ">
+            <div className=" bg-white rounded-lg shadow-lg w-full sm:w-1/2 h-4/6 p-10 relative">
                 <button
                     className="p-5 absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-4xl"
                     onClick={onClose}
@@ -105,11 +105,11 @@ const fetchUsers = async () => {
                     parking_users.status == "Verified" ? 
                     
 
-                    <div className='w-full h-full bg-slate-50 p-10 m-10 text-center flex flex-col items-center justify-between'>
+                    <div className='w-full h-full bg-slate-50 sm:p-10 m-10 text-center flex flex-col items-center justify-between'>
                     <div className='flex flex-col  gap-5'>
-                      <p className='text-2xl text-center font-bold'>Drivers Information</p>
+                      <p className='text-xl sm:text-2xl text-center font-bold'>Drivers Information</p>
                       <p>Driver: {parking_users.firstname} {parking_users.lastname}</p>
-                      <p></p>
+                      <p className=' hidden sm:visible'></p>
                       <p>Account Balance: Php {parking_users.balance}</p>
                       <p>Plate Number: {parking_users.plate_num}</p>  
                       <p>Car Color: {parking_users.color}</p>

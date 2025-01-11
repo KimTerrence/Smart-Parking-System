@@ -34,7 +34,7 @@ function Home(){
              animate={{ x: 0 }} 
              transition={{ duration: 1 , delay: 0.10}}className='flex gap-5 justify-center sm:justify-start'>
               <a href='/parking' className='flex items-center bg-black text-white px-4 py-4 rounded-xl text-sm font-bold' >View Parking</a>
-              <a href='../assets/smart_parking.apk' download="SmartParking.apk" className='hidden border-2 border-black px-2 py-3 rounded-xl text-sm sm:flex'>
+              <a href='../assets/smart_parking.apk' download="SmartParking.apk" className='hidden border-2 w-40 justify-center items-center border-black px-2 py-3 rounded-xl text-sm sm:flex'>
                 <img src={andsvg} alt="androis icon" />
                 Android Version
               </a>

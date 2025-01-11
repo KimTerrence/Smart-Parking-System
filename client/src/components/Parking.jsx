@@ -135,12 +135,12 @@ if(sensorData.sensor5 == 1){ //slot4
      
         <div id="parking" className="  h-screen w-full flex flex-col items-center justify-center gap-10 px-2 sm:px-20 pt-20 pb-5 -top-20 bg-blue-400">
           
-          <div className="bg-white h-full w-full flex flex-col items-center justify-center gap-5 rounded-xl px-2 sm:px-20">
+          <div className="bg-blue-400 sm:bg-white h-full w-full flex flex-col items-center justify-center gap-5 rounded-xl px-2 sm:px-20">
             <motion.p 
               initial={{ y: -200 }} // Start fully transparent
               animate={{ y: 0 }} // Fade in to fully visible
               transition={{ duration: 0.1 , delay: 2}} // Duration in seconds   
-            className="w-5/6 sm:text-3xl font-bold text-center">Parking Slots</motion.p>
+            className="sm:visible hidden w-5/6 sm:text-3xl font-bold text-center">Parking Slots</motion.p>
             <div className="w-full px-5 flex gap-5 ">
               <motion.button
               initial={{ y: -200 }} // Start fully transparent

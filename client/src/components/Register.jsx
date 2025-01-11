@@ -54,7 +54,7 @@ function Register(){
             }
         }
     return(
-        <div className="bg-[url('./assets/bg1.jpg')] bg-cover flex h-screen w-full items-center justify-center bg-blue-400 p-5 sm:p-0">
+        <div className="bg-[url('./assets/bg1.jpg')] flex h-screen w-full items-center justify-center bg-blue-400 p-5 sm:p-0">
             <form action="" onSubmit={handleRegister} className='h-5/6 w-full sm:w-4/12 flex flex-col items-center justify-center border-2 gap-5 sm:p-10 sm:px-20 py-10 px-6 bg-white rounded-lg'>
                 <p className='text-4xl font-extrabold'>Register</p>
                 <input type="text" placeholder="Firstname" value={fname} onChange={(e) => setFname(e.target.value)} className='h-12 w-full border-2 px-5 rounded-lg text-sm placeholder:text-black'/>

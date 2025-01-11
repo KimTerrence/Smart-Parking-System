@@ -18,7 +18,7 @@ const AnimationWrapper = ({ children }) => {
                 alt="Transition"
                 className="w-full h-100vh bg-black fixed z-50"
         
-                initial={{ y: "-100%" }} // Start below the screen
+                initial={{ y: "-100%"  }} // Start below the screen
                 animate={{ y: "0%" }}   // Slide up to cover the screen
                 exit={{ y: "-100%" }}   // Slide out above the screen
                 transition={{ duration: 1, ease: "easeInOut" }}

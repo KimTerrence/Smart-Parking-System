@@ -10,13 +10,23 @@ import Swal from 'sweetalert2'
 //modal
 const Modal = ({ show, onClose }) => {
 
+    const uname = "0";
+    const pw = "0";
+
     const navigate = useNavigate();
     const [plate, setPlate] = useState('');
     const [type, setType] = useState('');
     const [color, setColor] = useState('');
     const [users, setUsers] = useState([]);
-    const logOut = () => {
+    const logOut = async () => {
         navigate('/')
+        try{
+            const response = await axios.post('http://localhost:5000/login', { //-----login as admin-----
+                uname, pw,
+            });
+            } catch (error) {
+              console.error(error);
+            }
     }
    const openWallet = () =>{
     navigate('/wallet');
