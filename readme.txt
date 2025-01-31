@@ -5,7 +5,7 @@ Guiellie Keit Lorenzo
 Jacqueline Mape
 Noralyn Saludares
 
-<img src="sps.png"/>
+<img src="sps.png" />
 
 client:
     npm create vite@latest      //to create react.js
