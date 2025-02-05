@@ -1,8 +1,12 @@
 <h1>SMART PARKING SYSTEM | Group 5 | arduino + web(nodejs)</h1>
 Kim Terrence Quines - Main Programmer
+<br/>
 Rodary Tabasan
+<br/>
 Guiellie Keit Lorenzo
+<br/>
 Jacqueline Mape
+<br/>
 Noralyn Saludares
 
 <img src="sps.png" />
