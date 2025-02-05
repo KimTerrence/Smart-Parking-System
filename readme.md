@@ -1,11 +1,17 @@
-SMART PARKING SYSTEM | Group 5 | arduino + web(nodejs)
-Kim Terrence Quines 
+<h1>SMART PARKING SYSTEM | Group 5 | arduino + web(nodejs)</h1>
+Kim Terrence Quines - Main Programmer
 Rodary Tabasan
 Guiellie Keit Lorenzo
 Jacqueline Mape
 Noralyn Saludares
 
 <img src="sps.png" />
+
+<h6>Database</h6>
+<img src="db1.png" />
+<img src="db2.png" />
+<img src="db3.png" />
+<img src="db4.png" />
 
 client:
     npm create vite@latest      //to create react.js
